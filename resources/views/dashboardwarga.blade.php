@@ -909,7 +909,35 @@
       <button class="btn-batal" onclick="goTo('screenDashboard')">Batal</button>
     </div>
   </div>
+<!-- ════════════════════════════════════════
+       SCREEN 3: RIWAYAT FULL
+  ════════════════════════════════════════ -->
+  <div class="screen" id="screenRiwayat">
+    <div class="form-header">
+      <div class="form-header-title">Riwayat Lengkap</div>
+    </div>
+    <div class="section-wrap">
+      <p style="text-align:center; color:var(--ink-soft); margin-top: 40px;">
+        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin-bottom:10px; opacity:0.5;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><br>
+        Halaman daftar seluruh riwayat sedang dalam tahap pengembangan.
+      </p>
+    </div>
+  </div>
 
+  <!-- ════════════════════════════════════════
+       SCREEN 4: PROFIL
+  ════════════════════════════════════════ -->
+  <div class="screen" id="screenProfil">
+    <div class="form-header">
+      <div class="form-header-title">Profil Saya</div>
+    </div>
+    <div class="section-wrap">
+      <p style="text-align:center; color:var(--ink-soft); margin-top: 40px;">
+        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin-bottom:10px; opacity:0.5;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="12" cy="7" r="4"/></svg><br>
+        Pengaturan profil warga akan segera tersedia di sini.
+      </p>
+    </div>
+  </div>
   <!-- ════════════════════════════════════════
        BOTTOM NAVIGATION
   ════════════════════════════════════════ -->
@@ -926,12 +954,12 @@
       Bayar
     </button>
 
-    <button class="nav-tab" id="tab-riwayat" onclick="navGo('screenDashboard','tab-riwayat')">
+    <button class="nav-tab" id="tab-riwayat" onclick="navGo('screenRiwayat','tab-riwayat')">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       Riwayat
     </button>
 
-    <button class="nav-tab" id="tab-profil" onclick="navGo('screenDashboard','tab-profil')">
+    <button class="nav-tab" id="tab-profil" onclick="navGo('screenProfil','tab-profil')">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       Profil
     </button>

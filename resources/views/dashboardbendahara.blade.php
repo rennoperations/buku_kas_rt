@@ -558,12 +558,12 @@
     <nav class="sidebar-nav">
       <div class="nav-section-label">Utama</div>
 
-      <a class="nav-item active" href="#">
+      <a class="nav-item active" href="{{ url('/bendahara') }}">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Dashboard
       </a>
 
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="{{ url('/bendahara/verifikasi-pembayaran') }}">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         Verifikasi Pembayaran
         <span class="nav-badge" id="sidebarBadge">3</span>
@@ -571,17 +571,17 @@
 
       <div class="nav-section-label">Manajemen</div>
 
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="{{ url('/bendahara/data-warga') }}">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         Data Warga
       </a>
 
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="{{ url('/bendahara/pemasukan') }}">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
         Pemasukan Kas
       </a>
 
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="{{ url('/bendahara/laporan') }}">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         Laporan Keuangan
       </a>
