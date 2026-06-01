@@ -913,14 +913,42 @@
        SCREEN 3: RIWAYAT FULL
   ════════════════════════════════════════ -->
   <div class="screen" id="screenRiwayat">
-    <div class="form-header">
-      <div class="form-header-title">Riwayat Lengkap</div>
+    <div class="form-header" style="padding-bottom: 20px;">
+      <div class="form-header-title">Riwayat Pembayaran</div>
     </div>
-    <div class="section-wrap">
-      <p style="text-align:center; color:var(--ink-soft); margin-top: 40px;">
-        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin-bottom:10px; opacity:0.5;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><br>
-        Halaman daftar seluruh riwayat sedang dalam tahap pengembangan.
-      </p>
+    <div class="section-wrap" style="padding-top: 24px;">
+      <div class="riwayat-list">
+        <!-- 2025 -->
+        <div style="font-size: 12px; font-weight: 700; color: var(--ink-soft); margin: 8px 0 4px;">Tahun 2025</div>
+        <div class="riwayat-item">
+          <div class="riwayat-left">
+            <div class="riwayat-bulan">Mei 2025</div>
+            <div class="riwayat-nominal">Rp 50.000 • Transfer BCA</div>
+          </div>
+          <span class="chip chip-lunas">Lunas</span>
+        </div>
+        <div class="riwayat-item">
+          <div class="riwayat-left">
+            <div class="riwayat-bulan">April 2025</div>
+            <div class="riwayat-nominal">Rp 50.000 • Transfer BCA</div>
+          </div>
+          <span class="chip chip-lunas">Lunas</span>
+        </div>
+        <div class="riwayat-item">
+          <div class="riwayat-left">
+            <div class="riwayat-bulan">Maret 2025</div>
+            <div class="riwayat-nominal">Rp 50.000 • Tunai</div>
+          </div>
+          <span class="chip chip-lunas">Lunas</span>
+        </div>
+        <div class="riwayat-item">
+          <div class="riwayat-left">
+            <div class="riwayat-bulan">Februari 2025</div>
+            <div class="riwayat-nominal">Rp 50.000 • Ditolak (Struk Buram)</div>
+          </div>
+          <span class="chip chip-gagal">Gagal</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -928,14 +956,37 @@
        SCREEN 4: PROFIL
   ════════════════════════════════════════ -->
   <div class="screen" id="screenProfil">
-    <div class="form-header">
-      <div class="form-header-title">Profil Saya</div>
+    <div class="dash-header" style="text-align: center; padding-top: 60px;">
+      <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 700; color: white;">AH</div>
+      <div class="dash-name">Pak Ahmad Hidayat</div>
+      <div class="dash-greeting" style="margin-top: 4px;">Warga No. Rumah A-01</div>
     </div>
-    <div class="section-wrap">
-      <p style="text-align:center; color:var(--ink-soft); margin-top: 40px;">
-        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin-bottom:10px; opacity:0.5;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="12" cy="7" r="4"/></svg><br>
-        Pengaturan profil warga akan segera tersedia di sini.
-      </p>
+    
+    <div class="section-wrap" style="padding-top: 24px;">
+      <div class="riwayat-list">
+        <div class="riwayat-item" style="cursor: pointer;">
+          <div class="riwayat-left">
+            <div class="riwayat-bulan">Informasi Pribadi</div>
+            <div class="riwayat-nominal">Ubah nama atau nomor HP</div>
+          </div>
+          <svg width="20" height="20" fill="none" stroke="var(--ink-soft)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+        <div class="riwayat-item" style="cursor: pointer;">
+          <div class="riwayat-left">
+            <div class="riwayat-bulan">Ubah Password</div>
+            <div class="riwayat-nominal">Perbarui kata sandi akun Anda</div>
+          </div>
+          <svg width="20" height="20" fill="none" stroke="var(--ink-soft)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+        
+        <!-- Tombol Logout -->
+        <form method="POST" action="/logout" style="margin-top: 16px;">
+          @csrf
+          <button type="submit" style="width: 100%; padding: 14px; background: var(--red-soft); color: var(--red); border: 1px solid rgba(229,53,53,0.3); border-radius: 12px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer;">
+            Keluar (Logout)
+          </button>
+        </form>
+      </div>
     </div>
   </div>
   <!-- ════════════════════════════════════════
