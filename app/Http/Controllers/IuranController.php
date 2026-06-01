@@ -138,4 +138,28 @@ class IuranController extends Controller
             ], 500);
         }
     }
+    public function verifikasiPembayaran()
+    {
+        return view('verifikasipembayaran');
+    }
+
+    public function dataWarga()
+    {
+        return view('datawarga');
+    }
+
+    public function pemasukan()
+    {
+        return view('pemasukan');
+    }
+
+    public function laporan()
+    {
+        return view('laporan');
+    }
+
+    public function pengaturan()
+    {
+        return view('pengaturan');
+    }
 }
