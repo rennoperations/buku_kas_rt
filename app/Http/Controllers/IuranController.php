@@ -14,11 +14,13 @@ class IuranController extends Controller
      */
     public function indexWarga()
     {
-        // Mengambil riwayat transaksi khusus warga yang login (sementara ambil semua dulu untuk dummy-nyata)
-        $riwayat = Transaksi::orderBy('created_at', 'desc')->get();
-        
-        // Menghitung total kas yang disetujui (Approved)
-        $totalKas = Transaksi::where('status', 'approved')->sum('nominal');
+        try {
+            $riwayat = Transaksi::orderBy('created_at', 'desc')->get();
+            $totalKas = Transaksi::where('status', 'approved')->sum('nominal');
+        } catch (\Exception $e) {
+            $riwayat = collect([]);
+            $totalKas = 0;
+        }
 
         return view('dashboardwarga', compact('riwayat', 'totalKas'));
     }
@@ -28,12 +30,17 @@ class IuranController extends Controller
      */
     public function indexBendahara()
     {
-        // Ambil semua transaksi yang butuh verifikasi (pending) dan yang sudah selesai
-        $transaksi = Transaksi::orderBy('created_at', 'desc')->get();
-        
-        $totalKas = Transaksi::where('status', 'approved')->sum('nominal');
-        $wargaLunas = Transaksi::where('status', 'approved')->where('periode', 'Juni 2025')->count();
-        $wargaPending = Transaksi::where('status', 'pending')->count();
+        try {
+            $transaksi = Transaksi::orderBy('created_at', 'desc')->get();
+            $totalKas = Transaksi::where('status', 'approved')->sum('nominal');
+            $wargaLunas = Transaksi::where('status', 'approved')->where('periode', 'Juni 2025')->count();
+            $wargaPending = Transaksi::where('status', 'pending')->count();
+        } catch (\Exception $e) {
+            $transaksi = collect([]);
+            $totalKas = 0;
+            $wargaLunas = 0;
+            $wargaPending = 0;
+        }
 
         return view('dashboardbendahara', compact('transaksi', 'totalKas', 'wargaLunas', 'wargaPending'));
     }
@@ -49,25 +56,31 @@ class IuranController extends Controller
 
         try {
             $file = $request->file('bukti_bayar');
-            
-            // Kirim file gambar mentah langsung ke server AI Railway
+
             $response = Http::attach(
-                'file', 
-                file_get_contents($file->getRealPath()), 
+                'file',
+                file_get_contents($file->getRealPath()),
                 $file->getClientOriginalName()
-            )->post(env('AI_SERVICE_URL') . '/api/v1/ocr'); // Sesuaikan endpoint route dari FastAPI-mu
+            )->post(env('AI_SERVICE_URL') . '/api/ai/ocr-struk');
 
             if ($response->successful()) {
                 $result = $response->json();
                 return response()->json([
-                    'nominal_terdeteksi' => $result['nominal'] ?? null
+                    'nominal_terdeteksi' => $result['nominal_terdeteksi'] ?? 0,
+                    'status'             => $result['status'] ?? 'sukses',
                 ]);
             }
 
-            return response()->json(['message' => 'AI gagal mendeteksi nominal'], 422);
+            return response()->json([
+                'nominal_terdeteksi' => 0,
+                'status'             => 'gagal_mencari_total',
+            ], 422);
 
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Gagal terhubung ke server AI: ' . $e->getMessage()], 500);
+            return response()->json([
+                'nominal_terdeteksi' => 0,
+                'status'             => 'error: ' . $e->getMessage(),
+            ], 500);
         }
     }
 
@@ -77,29 +90,29 @@ class IuranController extends Controller
     public function simpanPembayaran(Request $request)
     {
         $request->validate([
-            'bukti_bayar' => 'required|image|max:5120',
+            'bukti_bayar'        => 'required|image|max:5120',
             'nominal_konfirmasi' => 'required|numeric|min:1',
-            'catatan' => 'nullable|string'
+            'catatan'            => 'nullable|string',
         ]);
 
         try {
-            // Simpan gambar bukti bayar ke folder storage/app/public/bukti_transfer
             $path = $request->file('bukti_bayar')->store('bukti_transfer', 'public');
 
-            // Simpan record data ke Neon database
             Transaksi::create([
-                'nama_warga' => 'Pak Ahmad Hidayat', // Sementara di-hardcode sebelum ada auth login
-                'periode' => 'Juni 2025',
-                'nominal' => $request->nominal_konfirmasi,
-                'bukti_bayar' => $path,
-                'catatan' => $request->catatan,
-                'status' => 'pending'
+                'nama_warga' => 'Pak Ahmad Hidayat', // Ganti dengan auth()->user()->name setelah ada login
+                'periode'    => 'Juni 2025',
+                'nominal'    => (int) $request->nominal_konfirmasi,
+                'bukti_bayar'=> $path,
+                'catatan'    => $request->catatan,
+                'status'     => 'pending',
             ]);
 
             return response()->json(['message' => 'Pembayaran berhasil dikirim!']);
 
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Gagal menyimpan data: ' . $e->getMessage()], 500);
+            return response()->json([
+                'message' => 'Gagal menyimpan data: ' . $e->getMessage(),
+            ], 500);
         }
     }
 
@@ -109,7 +122,7 @@ class IuranController extends Controller
     public function verifikasiBendahara(Request $request, $id)
     {
         $request->validate([
-            'aksi' => 'required|in:setuju,tolak'
+            'aksi' => 'required|in:setuju,tolak',
         ]);
 
         try {
@@ -120,7 +133,9 @@ class IuranController extends Controller
             return response()->json(['message' => 'Status transaksi berhasil diperbarui!']);
 
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Gagal memperbarui verifikasi: ' . $e->getMessage()], 500);
+            return response()->json([
+                'message' => 'Gagal memperbarui verifikasi: ' . $e->getMessage(),
+            ], 500);
         }
     }
 }
