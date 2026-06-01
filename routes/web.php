@@ -10,7 +10,7 @@ Route::get('/', function () {
 });
 
 // 2. Rute Autentikasi (Sistem Login & Logout)
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
