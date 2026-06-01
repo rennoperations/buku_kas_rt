@@ -558,12 +558,12 @@
     <nav class="sidebar-nav">
       <div class="nav-section-label">Utama</div>
 
-      <a class="nav-item active" href="{{ url('/verifikasi-pembayaran') }}">
+      <a class="nav-item" href="{{ url('/bendahara') }}">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Dashboard
       </a>
 
-      <a class="nav-item" href="{{ url('/bendahara/pemasukan') }}">
+      <a class="nav-item active" href="{{ url('/bendahara/pemasukan') }}">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         Pemasukan Kas
         <span class="nav-badge" id="sidebarBadge">3</span>
