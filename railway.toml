@@ -1,8 +1,8 @@
-[build]
-builder = "nixpacks"
-
-[build.environment]
-NIXPACKS_NODE_VERSION = "20"
-
-[deploy]
-startCommand = "php artisan storage:link ^&^& php artisan migrate --force ^&^& php -S 0.0.0.0:$PORT -t public"
+[build] 
+builder = "nixpacks" 
+ 
+[build.environment] 
+NIXPACKS_NODE_VERSION = "20" 
+ 
+[deploy] 
+startCommand = "php artisan migrate --force && php -S 0.0.0.0:$PORT -t public"
