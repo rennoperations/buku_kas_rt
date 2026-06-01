@@ -588,7 +588,7 @@
 
       <div class="nav-section-label">Sistem</div>
 
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="{{ url('/bendahara/pengaturan') }}">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M1 12h2M21 12h2M12 1v2M12 21v2"/></svg>
         Pengaturan
       </a>
