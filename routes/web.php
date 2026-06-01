@@ -1,17 +1,28 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IuranController;
+use App\Http\Controllers\AuthController;
 
-// Redirect root ke halaman warga
+// ── Auth ─────────────────────────────────────────
+Route::get('/login',  [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
+
+// ── Redirect root ─────────────────────────────────
 Route::get('/', function () {
-    return redirect('/warga');
+    return redirect('/login');
 });
 
-// Tampilan Halaman Utama
-Route::get('/warga', [IuranController::class, 'indexWarga']);
-Route::get('/bendahara', [IuranController::class, 'indexBendahara']);
+// ── Warga (harus login, role: warga atau bendahara) ──
+Route::middleware(['auth'])->group(function () {
+    Route::get('/warga',    [IuranController::class, 'indexWarga']);
+    Route::post('/api/scan-struk',  [IuranController::class, 'scanOCR']);
+    Route::post('/api/bayar-iuran', [IuranController::class, 'simpanPembayaran']);
+});
 
-// Endpoint API internal yang dipanggil oleh JavaScript Fetch di Blade
-Route::post('/api/scan-struk', [IuranController::class, 'scanOCR']);
-Route::post('/api/bayar-iuran', [IuranController::class, 'simpanPembayaran']);
-Route::post('/api/transaksi/{id}/verifikasi', [IuranController::class, 'verifikasiBendahara']);
+// ── Bendahara (harus login, role: bendahara) ─────────
+Route::middleware(['auth', 'bendahara'])->group(function () {
+    Route::get('/bendahara', [IuranController::class, 'indexBendahara']);
+    Route::post('/api/transaksi/{id}/verifikasi', [IuranController::class, 'verifikasiBendahara']);
+});
