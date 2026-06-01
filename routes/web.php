@@ -1,7 +1,11 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IuranController;
+
+// Redirect root ke halaman warga
+Route::get('/', function () {
+    return redirect('/warga');
+});
 
 // Tampilan Halaman Utama
 Route::get('/warga', [IuranController::class, 'indexWarga']);
