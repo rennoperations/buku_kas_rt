@@ -716,13 +716,7 @@
       new Date().toLocaleDateString('id-ID', opts);
 
     /* ── Data dummy (nanti diganti fetch dari Laravel API) ── */
-    let transaksiData = [
-      { id:1, nama:'Ibu Siti Rahmawati', periode:'Juni 2025', nominal:50000,  waktu:'5 Jun, 20:15', status:'pending',  bukti:null },
-      { id:2, nama:'Bapak Joko Susanto', periode:'Juni 2025', nominal:50000,  waktu:'5 Jun, 19:08', status:'pending',  bukti:null },
-      { id:3, nama:'Ibu Maya Kusuma',    periode:'Juni 2025', nominal:50000,  waktu:'4 Jun, 22:00', status:'pending',  bukti:null },
-      { id:4, nama:'Bapak Anwar',        periode:'Juni 2025', nominal:50000,  waktu:'4 Jun, 10:03', status:'approved', bukti:null },
-      { id:5, nama:'Bapak Susanto',      periode:'Juni 2025', nominal:50000,  waktu:'4 Jun, 09:00', status:'rejected', bukti:null },
-    ];
+    let transaksiData = @json($transaksi);
 
     let activeId = null;
 

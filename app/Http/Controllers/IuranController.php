@@ -3,54 +3,124 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http; // Untuk "ngobrol" dengan AI
-use App\Models\TransaksiIuran;       // Untuk simpan ke DB
+use App\Models\Transaksi;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class IuranController extends Controller
 {
-    // TAHAP 1: Kirim gambar ke FastAPI (OCR)
-    public function scanStruk(Request $request)
+    /**
+     * Menampilkan Halaman Warga dengan Data Riwayat Nyata
+     */
+    public function indexWarga()
     {
-        $request->validate([
-            'bukti_bayar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        // Mengambil riwayat transaksi khusus warga yang login (sementara ambil semua dulu untuk dummy-nyata)
+        $riwayat = Transaksi::orderBy('created_at', 'desc')->get();
+        
+        // Menghitung total kas yang disetujui (Approved)
+        $totalKas = Transaksi::where('status', 'approved')->sum('nominal');
 
-        $file = $request->file('bukti_bayar');
-
-        // Bagian "Ngobrol" dengan AI
-        $response = Http::timeout(30)->attach(
-            'file',
-            file_get_contents($file->getRealPath()),
-            $file->getClientOriginalName()
-        )->post('http://127.0.0.1:8001/api/ai/ocr-struk');
-
-        if ($response->failed()) {
-            return response()->json(['status' => 'error', 'pesan' => 'Gagal terhubung ke AI'], 503);
-        }
-
-        return response()->json($response->json());
+        return view('dashboardwarga', compact('riwayat', 'totalKas'));
     }
 
-    // TAHAP 2: Simpan hasil konfirmasi ke Database
-    public function simpanTransaksi(Request $request) 
+    /**
+     * Menampilkan Halaman Bendahara dengan Data Nyata dari Database
+     */
+    public function indexBendahara()
     {
-        // Validasi input
+        // Ambil semua transaksi yang butuh verifikasi (pending) dan yang sudah selesai
+        $transaksi = Transaksi::orderBy('created_at', 'desc')->get();
+        
+        $totalKas = Transaksi::where('status', 'approved')->sum('nominal');
+        $wargaLunas = Transaksi::where('status', 'approved')->where('periode', 'Juni 2025')->count();
+        $wargaPending = Transaksi::where('status', 'pending')->count();
+
+        return view('dashboardbendahara', compact('transaksi', 'totalKas', 'wargaLunas', 'wargaPending'));
+    }
+
+    /**
+     * 1. Fungsi Scan Struk via Mesin AI Python di Railway
+     */
+    public function scanOCR(Request $request)
+    {
         $request->validate([
-            'bukti_bayar'        => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'nominal_konfirmasi' => 'required|numeric',
+            'bukti_bayar' => 'required|image|max:5120',
         ]);
 
-        // Simpan gambar secara permanen
-        $path = $request->file('bukti_bayar')->store('bukti_transfer', 'public');
+        try {
+            $file = $request->file('bukti_bayar');
+            
+            // Kirim file gambar mentah langsung ke server AI Railway
+            $response = Http::attach(
+                'file', 
+                file_get_contents($file->getRealPath()), 
+                $file->getClientOriginalName()
+            )->post(env('AI_SERVICE_URL') . '/api/v1/ocr'); // Sesuaikan endpoint route dari FastAPI-mu
 
-        // Simpan ke database
-        $transaksi = new TransaksiIuran();
-        $transaksi->user_id     = 1; // User ID hardcoded untuk testing
-        $transaksi->nominal     = (float) $request->input('nominal_konfirmasi');
-        $transaksi->bukti_bayar = $path;
-        $transaksi->status      = 'pending';
-        $transaksi->save();
+            if ($response->successful()) {
+                $result = $response->json();
+                return response()->json([
+                    'nominal_terdeteksi' => $result['nominal'] ?? null
+                ]);
+            }
 
-        return response()->json(['message' => 'Data berhasil disimpan']);
+            return response()->json(['message' => 'AI gagal mendeteksi nominal'], 422);
+
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal terhubung ke server AI: ' . $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * 2. Fungsi Menyimpan Pembayaran Warga ke Postgres Neon
+     */
+    public function simpanPembayaran(Request $request)
+    {
+        $request->validate([
+            'bukti_bayar' => 'required|image|max:5120',
+            'nominal_konfirmasi' => 'required|numeric|min:1',
+            'catatan' => 'nullable|string'
+        ]);
+
+        try {
+            // Simpan gambar bukti bayar ke folder storage/app/public/bukti_transfer
+            $path = $request->file('bukti_bayar')->store('bukti_transfer', 'public');
+
+            // Simpan record data ke Neon database
+            Transaksi::create([
+                'nama_warga' => 'Pak Ahmad Hidayat', // Sementara di-hardcode sebelum ada auth login
+                'periode' => 'Juni 2025',
+                'nominal' => $request->nominal_konfirmasi,
+                'bukti_bayar' => $path,
+                'catatan' => $request->catatan,
+                'status' => 'pending'
+            ]);
+
+            return response()->json(['message' => 'Pembayaran berhasil dikirim!']);
+
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal menyimpan data: ' . $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * 3. Fungsi Aksi Verifikasi dari Bendahara
+     */
+    public function verifikasiBendahara(Request $request, $id)
+    {
+        $request->validate([
+            'aksi' => 'required|in:setuju,tolak'
+        ]);
+
+        try {
+            $transaksi = Transaksi::findOrFail($id);
+            $transaksi->status = $request->aksi === 'setuju' ? 'approved' : 'rejected';
+            $transaksi->save();
+
+            return response()->json(['message' => 'Status transaksi berhasil diperbarui!']);
+
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal memperbarui verifikasi: ' . $e->getMessage()], 500);
+        }
     }
 }
