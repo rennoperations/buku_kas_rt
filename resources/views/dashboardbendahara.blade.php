@@ -690,7 +690,6 @@
         <button class="modal-close" onclick="closeModalDirect()">×</button>
       </div>
       <div class="modal-body">
-        <!-- Placeholder struk (ganti dengan <img src="{{ Storage::url($transaksi->bukti_bayar) }}"> di Laravel) -->
         <div id="modalImgWrap" style="background:var(--surface);border-radius:8px;border:1px solid var(--border);height:200px;display:flex;align-items:center;justify-content:center;">
           <svg width="48" height="48" fill="none" stroke="var(--ink-soft)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         </div>
