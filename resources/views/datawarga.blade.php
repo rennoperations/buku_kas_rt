@@ -706,7 +706,7 @@
       new Date().toLocaleDateString('id-ID', opts);
 
     /* ── Data dummy (nanti diganti fetch dari Laravel API) ── */
-    let transaksiData = @json($transaksi);
+    let transaksiData = [];
 
     let activeId = null;
 
