@@ -23,19 +23,23 @@ class AuthController extends Controller
     /** Proses login */
     public function login(Request $request)
     {
-        $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
-        ]);
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            $request->session()->regenerate();
-            return $this->redirectByRole(Auth::user());
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
+
+        // LOGIKA PENENTU ARAH
+        if ($user->role === 'bendahara') {
+            return redirect('/bendahara'); // Arahkan ke dashboard bendahara
+        } else {
+            return redirect('/dashboard'); // Arahkan ke dashboard warga
         }
+    }
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ])->withInput($request->only('email'));
+    return back()->withErrors(['email' => 'Login gagal.']);
     }
 
     /** Logout */
@@ -69,9 +73,9 @@ class AuthController extends Controller
     User::create([
         'name' => $request->name,
         'email' => $request->email,
-        'password' => Hash::make($request->password), // Enkripsi password
-        'role' => 'warga', // Otomatis jadikan warga
+        'password' => Hash::make($request->password),
         'no_rumah' => $request->no_rumah,
+        'role' => $request->role, // PASTIkan ini $request->role, bukan 'warga'
     ]);
 
     // 3. Arahkan kembali ke halaman login dengan pesan sukses
