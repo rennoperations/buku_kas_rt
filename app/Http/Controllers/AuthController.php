@@ -15,6 +15,11 @@ class AuthController extends Controller
         return view('login');
     }
 
+    public function showRegister()
+    {
+        return view('register');
+    }
+    
     /** Proses login */
     public function login(Request $request)
     {
