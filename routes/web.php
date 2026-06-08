@@ -8,11 +8,6 @@ Route::get('/', function () {
     return view('landing');
 });
 
-// 1. Rute Awal (Otomatis diarahkan ke halaman login)
-Route::get('/', function () {
-    return redirect('/login');
-});
-
 // 2. Rute Autentikasi (Sistem Login & Logout)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
