@@ -54,7 +54,7 @@ class AuthController extends Controller
             ? redirect('/bendahara')
             : redirect('/warga');
     }
-    
+
     public function prosesRegister(Request $request)
     {
     // 1. Validasi data yang diisi warga
@@ -75,7 +75,7 @@ class AuthController extends Controller
     ]);
 
     // 3. Arahkan kembali ke halaman login dengan pesan sukses
-    return redirect('/login')->withErrors(['email' => 'Pendaftaran berhasil! Silakan login.']); 
+    return redirect('/login')->with('success', 'Pendaftaran berhasil! Silakan Login.'); 
     // Catatan: menggunakan withErrors sementara agar pesan muncul di alert merah/hijau form loginmu
     }
 }
