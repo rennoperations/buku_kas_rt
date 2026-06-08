@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IuranController;
 use App\Http\Controllers\AuthController;
 
+Route::get('/', function () {
+    return view('landing');
+});
+
 // 1. Rute Awal (Otomatis diarahkan ke halaman login)
 Route::get('/', function () {
     return redirect('/login');
