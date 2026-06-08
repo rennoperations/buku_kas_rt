@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Masuk — Kas Digital RT</title>
+  <title>Daftar Akun — Kas Digital RT</title>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -36,23 +36,25 @@
 
     /* ─── LEFT PANEL ─── */
     .auth-left {
-      padding: 48px;
+      padding: 40px 48px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+      overflow-y: auto;
     }
 
     .auth-left-inner {
-      max-width: 380px;
+      max-width: 400px;
       width: 100%;
+      padding: 8px 0;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 9px;
-      margin-bottom: 48px;
+      margin-bottom: 36px;
       text-decoration: none;
     }
 
@@ -81,7 +83,7 @@
     .auth-sub {
       font-size: 14px;
       color: var(--ink-3);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .auth-sub a {
@@ -102,12 +104,25 @@
       color: #991b1b;
       margin-bottom: 18px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 8px;
     }
 
+    .alert-error ul {
+      list-style: none;
+      margin: 0; padding: 0;
+    }
+
+    .alert-error ul li { margin-bottom: 2px; }
+
     /* Fields */
-    .field { margin-bottom: 16px; }
+    .field { margin-bottom: 14px; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
 
     .field label {
       display: block;
@@ -119,7 +134,8 @@
       margin-bottom: 7px;
     }
 
-    .field input {
+    .field input,
+    .field select {
       width: 100%;
       border: 1.5px solid var(--border);
       border-radius: 10px;
@@ -130,14 +146,18 @@
       outline: none;
       background: var(--white);
       transition: border-color .2s, box-shadow .2s;
+      appearance: none;
+      -webkit-appearance: none;
     }
 
-    .field input:focus {
+    .field input:focus,
+    .field select:focus {
       border-color: var(--blue);
       box-shadow: 0 0 0 3px rgba(26,111,224,.1);
     }
 
-    .field input.is-invalid { border-color: var(--red); }
+    .field input.is-invalid,
+    .field select.is-invalid { border-color: var(--red); }
 
     .field-error {
       font-size: 12px;
@@ -145,24 +165,52 @@
       margin-top: 5px;
     }
 
-    .remember-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 20px;
+    /* Select arrow */
+    .select-wrap { position: relative; }
+
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--ink-3);
+      pointer-events: none;
     }
 
-    .remember-row input[type=checkbox] {
-      width: 16px; height: 16px;
+    /* Terms */
+    .terms-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-bottom: 18px;
+      margin-top: 4px;
+    }
+
+    .terms-row input {
+      margin-top: 3px;
+      flex-shrink: 0;
+      width: 15px; height: 15px;
       accent-color: var(--blue);
       cursor: pointer;
     }
 
-    .remember-row label {
-      font-size: 13px;
+    .terms-row label {
+      font-size: 12.5px;
       color: var(--ink-2);
+      line-height: 1.55;
       cursor: pointer;
     }
+
+    .terms-row a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .terms-row a:hover { text-decoration: underline; }
 
     .btn-auth {
       width: 100%;
@@ -177,45 +225,10 @@
       cursor: pointer;
       transition: background .2s, transform .15s;
       box-shadow: 0 4px 16px rgba(11,37,69,.2);
-      margin-bottom: 14px;
     }
 
     .btn-auth:hover { background: var(--navy-2); transform: translateY(-1px); }
     .btn-auth:active { transform: translateY(0); }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .divider-line { flex: 1; height: 1px; background: var(--border); }
-    .divider span { font-size: 12px; color: var(--ink-3); }
-
-    .demo-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-    }
-
-    .demo-title {
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: 7px;
-    }
-
-    .demo-item {
-      font-size: 12.5px;
-      color: var(--ink-2);
-      line-height: 1.9;
-    }
-
-    .demo-item strong { color: var(--navy); }
 
     /* ─── RIGHT PANEL ─── */
     .auth-right {
@@ -227,6 +240,9 @@
       padding: 60px 48px;
       position: relative;
       overflow: hidden;
+      position: sticky;
+      top: 0;
+      height: 100dvh;
     }
 
     .auth-right::before {
@@ -317,7 +333,7 @@
 
     .testi-avatar {
       width: 34px; height: 34px; border-radius: 50%;
-      background: linear-gradient(135deg, #1a6fe0, #0da880);
+      background: linear-gradient(135deg, #7c3aed, #1a6fe0);
       display: flex; align-items: center; justify-content: center;
       font-size: 12px; color: #fff; font-weight: 700;
       flex-shrink: 0;
@@ -332,6 +348,7 @@
       .auth-right { display: none; }
       .auth-left { padding: 48px 24px; }
       .auth-left-inner { max-width: 100%; }
+      .field-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -351,23 +368,57 @@
         <span class="brand-name">Kas Digital RT</span>
       </a>
 
-      <h1 class="auth-title">Selamat datang<br>kembali 👋</h1>
+      <h1 class="auth-title">Buat akun baru</h1>
       <p class="auth-sub">
-        Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a>
+        Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
       </p>
 
       {{-- Error dari Laravel --}}
       @if ($errors->any())
         <div class="alert-error">
-          <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20" style="flex-shrink:0;margin-top:1px">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
           </svg>
-          {{ $errors->first() }}
+          <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
         </div>
       @endif
 
-      <form method="POST" action="{{ route('login') }}">
+      <form method="POST" action="{{ route('register') }}">
         @csrf
+
+        <div class="field-row">
+          <div class="field">
+            <label for="nama_lengkap">Nama Lengkap</label>
+            <input type="text"
+                   id="nama_lengkap"
+                   name="nama_lengkap"
+                   value="{{ old('nama_lengkap') }}"
+                   placeholder="Ibu Siti Rahmawati"
+                   class="{{ $errors->has('nama_lengkap') ? 'is-invalid' : '' }}"
+                   required autofocus>
+            @error('nama_lengkap')
+              <div class="field-error">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="field">
+            <label for="nomor_rumah">No. Rumah / KK</label>
+            <input type="text"
+                   id="nomor_rumah"
+                   name="nomor_rumah"
+                   value="{{ old('nomor_rumah') }}"
+                   placeholder="Blok A-12"
+                   class="{{ $errors->has('nomor_rumah') ? 'is-invalid' : '' }}"
+                   required>
+            @error('nomor_rumah')
+              <div class="field-error">{{ $message }}</div>
+            @enderror
+          </div>
+        </div>
 
         <div class="field">
           <label for="email">Alamat Email</label>
@@ -377,46 +428,77 @@
                  value="{{ old('email') }}"
                  placeholder="nama@email.com"
                  class="{{ $errors->has('email') ? 'is-invalid' : '' }}"
-                 required autofocus>
+                 required>
           @error('email')
             <div class="field-error">{{ $message }}</div>
           @enderror
         </div>
 
         <div class="field">
-          <label for="password">Password</label>
-          <input type="password"
-                 id="password"
-                 name="password"
-                 placeholder="••••••••"
-                 class="{{ $errors->has('password') ? 'is-invalid' : '' }}"
+          <label for="nomor_hp">Nomor HP / WhatsApp</label>
+          <input type="tel"
+                 id="nomor_hp"
+                 name="nomor_hp"
+                 value="{{ old('nomor_hp') }}"
+                 placeholder="08xxxxxxxxxx"
+                 class="{{ $errors->has('nomor_hp') ? 'is-invalid' : '' }}"
                  required>
-          @error('password')
+          @error('nomor_hp')
             <div class="field-error">{{ $message }}</div>
           @enderror
         </div>
 
-        <div class="remember-row">
-          <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
-          <label for="remember">Ingat saya selama 30 hari</label>
+        <div class="field-row">
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password"
+                   id="password"
+                   name="password"
+                   placeholder="Min. 8 karakter"
+                   class="{{ $errors->has('password') ? 'is-invalid' : '' }}"
+                   required minlength="8">
+            @error('password')
+              <div class="field-error">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="field">
+            <label for="password_confirmation">Konfirmasi Password</label>
+            <input type="password"
+                   id="password_confirmation"
+                   name="password_confirmation"
+                   placeholder="Ulangi password"
+                   required>
+          </div>
         </div>
 
-        <button type="submit" class="btn-auth">Masuk ke Sistem</button>
+        <div class="field">
+          <label for="role">Daftar Sebagai</label>
+          <div class="select-wrap">
+            <select id="role"
+                    name="role"
+                    class="{{ $errors->has('role') ? 'is-invalid' : '' }}"
+                    required>
+              <option value="" disabled {{ old('role') ? '' : 'selected' }}>Pilih peran Anda</option>
+              <option value="warga"      {{ old('role') === 'warga'      ? 'selected' : '' }}>Warga RT</option>
+              <option value="bendahara"  {{ old('role') === 'bendahara'  ? 'selected' : '' }}>Bendahara / Pengurus RT</option>
+            </select>
+          </div>
+          @error('role')
+            <div class="field-error">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="terms-row">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">
+            Saya menyetujui <a href="#">syarat penggunaan</a> dan
+            <a href="#">kebijakan privasi</a> Kas Digital RT
+          </label>
+        </div>
+
+        <button type="submit" class="btn-auth">Buat Akun Sekarang</button>
       </form>
-
-      <div class="divider">
-        <div class="divider-line"></div>
-        <span>Akun Demo</span>
-        <div class="divider-line"></div>
-      </div>
-
-      <div class="demo-box">
-        <div class="demo-title">Coba tanpa daftar</div>
-        <div class="demo-item">
-          <strong>Bendahara:</strong> bendahara@kasrt.com / bendahara123<br>
-          <strong>Warga:</strong> siti@kasrt.com / warga123
-        </div>
-      </div>
 
     </div>
   </div>
@@ -425,42 +507,42 @@
   <div class="auth-right">
     <div class="auth-right-inner">
 
-      <h2 class="right-title">Kelola kas RT dengan lebih mudah</h2>
-      <p class="right-desc">Ribuan bendahara dan warga sudah menggunakan Kas Digital RT untuk pengelolaan iuran yang transparan.</p>
+      <h2 class="right-title">Bergabung dengan ribuan RT yang sudah digital</h2>
+      <p class="right-desc">Setup 5 menit. Gratis selamanya untuk RT hingga 100 KK. Tidak perlu kartu kredit.</p>
 
       <div class="feat-list">
         <div class="feat-item">
-          <div class="feat-icon">🤖</div>
+          <div class="feat-icon">✅</div>
           <div>
-            <div class="feat-title">Verifikasi AI otomatis</div>
-            <div class="feat-desc">Upload bukti transfer, AI langsung baca nominal</div>
+            <div class="feat-title">Akun langsung aktif</div>
+            <div class="feat-desc">Setelah daftar, langsung bisa akses semua fitur</div>
           </div>
         </div>
         <div class="feat-item">
-          <div class="feat-icon">📊</div>
+          <div class="feat-icon">🔒</div>
           <div>
-            <div class="feat-title">Laporan real-time</div>
-            <div class="feat-desc">Saldo dan pengeluaran terpantau kapan saja</div>
+            <div class="feat-title">Data aman & terenkripsi</div>
+            <div class="feat-desc">Email dan data pribadi tidak pernah dibagikan</div>
           </div>
         </div>
         <div class="feat-item">
-          <div class="feat-icon">🔔</div>
+          <div class="feat-icon">📱</div>
           <div>
-            <div class="feat-title">Notifikasi otomatis</div>
-            <div class="feat-desc">Pengingat jatuh tempo tanpa WhatsApp manual</div>
+            <div class="feat-title">Akses dari mana saja</div>
+            <div class="feat-desc">Web, HP, tablet — semua didukung</div>
           </div>
         </div>
       </div>
 
       <div class="testi">
         <div class="testi-quote">
-          "Dulu bendahara harus manual cek transfer satu-satu. Sekarang <span class="hl">AI langsung verifikasi otomatis</span> — hemat 2 jam tiap bulan."
+          "Proses daftarnya <span class="hl">cuma 2 menit</span> dan langsung bisa bayar iuran. Tidak perlu WhatsApp bendahara lagi tiap bulan!"
         </div>
         <div class="testi-author">
-          <div class="testi-avatar">AH</div>
+          <div class="testi-avatar">SR</div>
           <div>
-            <div class="testi-name">Pak Ahmad Hidayat</div>
-            <div class="testi-role">Bendahara RT 05 Griya Asri</div>
+            <div class="testi-name">Ibu Siti Rahmawati</div>
+            <div class="testi-role">Warga RT 05 Griya Asri</div>
           </div>
         </div>
       </div>
