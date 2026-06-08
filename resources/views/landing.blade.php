@@ -995,6 +995,9 @@
       <h2 class="cta-title">Siap modernisasi<br>administrasi RT Anda?</h2>
       <p class="cta-sub">Mulai sekarang, gratis. Tidak perlu instalasi server — langsung pakai dari browser atau HP.</p>
       <div class="cta-buttons">
+        <a href="{{ url('/bendahara') }}" class="btn-login">
+            Kembali ke Dashboard
+        </a>
         <a href="/login" class="btn-hero-primary">
           Masuk ke Sistem →
         </a>
