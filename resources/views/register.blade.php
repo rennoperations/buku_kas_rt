@@ -395,12 +395,12 @@
             <label for="nama_lengkap">Nama Lengkap</label>
             <input type="text"
                    id="nama_lengkap"
-                   name="nama_lengkap"
-                   value="{{ old('nama_lengkap') }}"
+                   name="name"
+                   value="{{ old('name') }}"
                    placeholder="Ibu Siti Rahmawati"
-                   class="{{ $errors->has('nama_lengkap') ? 'is-invalid' : '' }}"
+                   class="{{ $errors->has('name') ? 'is-invalid' : '' }}"
                    required autofocus>
-            @error('nama_lengkap')
+            @error('name')
               <div class="field-error">{{ $message }}</div>
             @enderror
           </div>
@@ -409,12 +409,12 @@
             <label for="nomor_rumah">No. Rumah / KK</label>
             <input type="text"
                    id="nomor_rumah"
-                   name="nomor_rumah"
-                   value="{{ old('nomor_rumah') }}"
+                   name="no_rumah"
+                   value="{{ old('no_rumah') }}"
                    placeholder="Blok A-12"
-                   class="{{ $errors->has('nomor_rumah') ? 'is-invalid' : '' }}"
+                   class="{{ $errors->has('no_rumah') ? 'is-invalid' : '' }}"
                    required>
-            @error('nomor_rumah')
+            @error('no_rumah')
               <div class="field-error">{{ $message }}</div>
             @enderror
           </div>
