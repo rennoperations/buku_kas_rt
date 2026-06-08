@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
         return view('register');
     }
-    
+
     /** Proses login */
     public function login(Request $request)
     {
@@ -53,5 +53,29 @@ class AuthController extends Controller
         return $user->isBendahara()
             ? redirect('/bendahara')
             : redirect('/warga');
+    }
+    
+    public function prosesRegister(Request $request)
+    {
+    // 1. Validasi data yang diisi warga
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6',
+        'no_rumah' => 'required|string|max:10', // Asumsi kamu meminta nomor rumah
+    ]);
+
+    // 2. Simpan ke database
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password), // Enkripsi password
+        'role' => 'warga', // Otomatis jadikan warga
+        'no_rumah' => $request->no_rumah,
+    ]);
+
+    // 3. Arahkan kembali ke halaman login dengan pesan sukses
+    return redirect('/login')->withErrors(['email' => 'Pendaftaran berhasil! Silakan login.']); 
+    // Catatan: menggunakan withErrors sementara agar pesan muncul di alert merah/hijau form loginmu
     }
 }
