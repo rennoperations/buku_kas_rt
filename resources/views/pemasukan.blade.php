@@ -563,9 +563,9 @@
         Dashboard
       </a>
 
-      <a class="nav-item active" href="{{ url('/bendahara/pemasukan') }}">
+      <a class="nav-item" href="{{ url('/bendahara/verifikasi-pembayaran') }}">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        Pemasukan Kas
+        Verifikasi Pembayaran
         <span class="nav-badge" id="sidebarBadge">3</span>
       </a>
 
@@ -576,7 +576,7 @@
         Data Warga
       </a>
 
-      <a class="nav-item" href="{{ url('/bendahara/pemasukan') }}">
+      <a class="nav-item active" href="{{ url('/bendahara/pemasukan') }}">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
         Pemasukan Kas
       </a>
