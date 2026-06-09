@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaksi;
+use App\Models\User; // <--- INI WAJIB ADA UNTUK KELOLA WARGA
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
@@ -138,14 +139,10 @@ class IuranController extends Controller
             ], 500);
         }
     }
+
     public function verifikasiPembayaran()
     {
         return view('verifikasipembayaran');
-    }
-
-    public function dataWarga()
-    {
-        return view('datawarga');
     }
 
     public function pemasukan()
@@ -161,5 +158,68 @@ class IuranController extends Controller
     public function pengaturan()
     {
         return view('pengaturan');
+    }
+
+    // ═══════════════════════════════════════
+    // KELOLA DATA WARGA (BENDAHARA)
+    // ═══════════════════════════════════════
+
+    public function dataWarga()
+    {
+        // Ambil semua data warga dari database
+        $wargas = User::where('role', 'warga')->orderBy('no_rumah')->get();
+        
+        // Panggil view datawarga dan kirimkan data $wargas
+        return view('datawarga', compact('wargas')); 
+    }
+
+    public function tambahWarga(Request $request)
+    {
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
+            'no_rumah' => 'required|string|max:10',
+            'no_wa'    => 'nullable|string|max:20',
+        ]);
+
+        User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'no_rumah' => $request->no_rumah,
+            'no_wa'    => $request->no_wa,
+            'role'     => 'warga',
+            'password' => \Illuminate\Support\Facades\Hash::make('kasrt123'), 
+        ]);
+
+        return back()->with('success', 'Data Warga berhasil ditambahkan!');
+    }
+
+    public function updateWarga(Request $request, $id)
+    {
+        $warga = User::findOrFail($id);
+        
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email,' . $warga->id, 
+            'no_rumah' => 'required|string|max:10',
+            'no_wa'    => 'nullable|string|max:20',
+        ]);
+
+        $warga->update([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'no_rumah' => $request->no_rumah,
+            'no_wa'    => $request->no_wa,
+        ]);
+
+        return back()->with('success', 'Data Warga berhasil diperbarui!');
+    }
+
+    public function hapusWarga($id)
+    {
+        $warga = User::findOrFail($id);
+        $warga->delete();
+
+        return back()->with('success', 'Warga berhasil dihapus!');
     }
 }

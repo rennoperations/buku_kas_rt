@@ -29,7 +29,13 @@ Route::middleware(['auth', 'bendahara'])->group(function () {
     // Menu Utama
     Route::get('/bendahara', [IuranController::class, 'indexBendahara']);
     Route::get('/bendahara/verifikasi-pembayaran', [IuranController::class, 'verifikasiPembayaran']);
-    Route::get('/bendahara/data-warga', [IuranController::class, 'dataWarga']);
+    
+    // ── Data Warga (Sudah Dilengkapi) ──
+    Route::get('/bendahara/data-warga', [IuranController::class, 'dataWarga'])->name('bendahara.data-warga');
+    Route::post('/bendahara/data-warga', [IuranController::class, 'tambahWarga'])->name('bendahara.tambah-warga');
+    Route::post('/bendahara/data-warga/{id}/update', [IuranController::class, 'updateWarga'])->name('bendahara.update-warga');
+    Route::post('/bendahara/data-warga/{id}/hapus', [IuranController::class, 'hapusWarga'])->name('bendahara.hapus-warga');
+    
     Route::get('/bendahara/pemasukan', [IuranController::class, 'pemasukan']);
     Route::get('/bendahara/laporan', [IuranController::class, 'laporan']);
     Route::get('/bendahara/pengaturan', [IuranController::class, 'pengaturan']);
