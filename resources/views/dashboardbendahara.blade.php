@@ -716,17 +716,21 @@
 
     /* ── Data dummy (nanti diganti fetch dari Laravel API) ── */
     /* ── Data dinamis dari Laravel (Diterjemahkan) ── */
-    let transaksiData = @json($transaksi->map(function($t) {
-        return [
-            'id'      => $t->id,
-            'nama'    => $t->user ? $t->user->name : 'Warga Tidak Diketahui',
-            'periode' => $t->periode,
-            'nominal' => $t->nominal,
-            'waktu'   => $t->created_at->format('d M Y, H:i'),
-            'status'  => $t->status,
-            'struk'   => $t->struk_path ? asset('storage/' . $t->struk_path) : null
-        ];
-    }));
+    /* ── Data dinamis dari Laravel (Diterjemahkan) ── */
+    @php
+        $transaksiBersih = $transaksi->map(function($t) {
+            return [
+                'id'      => $t->id,
+                'nama'    => $t->user ? $t->user->name : 'Warga Tidak Diketahui',
+                'periode' => $t->periode,
+                'nominal' => $t->nominal,
+                'waktu'   => $t->created_at ? $t->created_at->format('d M Y, H:i') : '-',
+                'status'  => $t->status,
+                'struk'   => $t->struk_path ? asset('storage/' . $t->struk_path) : null
+            ];
+        });
+    @endphp
+    let transaksiData = @json($transaksiBersih);
 
     let activeId = null;
 
