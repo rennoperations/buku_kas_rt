@@ -146,7 +146,20 @@ class IuranController extends Controller
 
     public function verifikasiPembayaran()
     {
-        return view('verifikasipembayaran');
+        try {
+            $transaksi = Transaksi::orderBy('created_at', 'desc')->get();
+            $totalKas = Transaksi::where('status', 'approved')->sum('nominal');
+            $wargaLunas = Transaksi::where('status', 'approved')->where('periode', '06-2025')->count();
+            $wargaPending = Transaksi::where('status', 'pending')->count();
+        } catch (\Exception $e) {
+            $transaksi = collect([]);
+            $totalKas = 0;
+            $wargaLunas = 0;
+            $wargaPending = 0;
+        }
+
+        // Jangan lupa ganti nama view-nya sesuai dengan yang ada di foldermu (biasanya verifikasipembayaran)
+        return view('verifikasipembayaran', compact('transaksi', 'totalKas', 'wargaLunas', 'wargaPending'));
     }
 
     public function pemasukan()
