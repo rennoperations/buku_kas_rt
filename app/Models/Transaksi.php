@@ -12,10 +12,10 @@ class Transaksi extends Model
     // Sesuaikan dengan nama kolom di file migrasi terbaru
     protected $fillable = [
         'user_id',
-        'nama_warga',
+        // 'nama_warga', <-- (Pastikan ini sudah dihapus seperti langkah sebelumnya ya)
         'periode',
         'nominal',
-        'bukti_bayar',
+        'struk_path', // <--- UBAH MENJADI struk_path
         'catatan',
         'status',
     ];
