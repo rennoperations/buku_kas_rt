@@ -18,7 +18,7 @@ return new class extends Migration
 
             // Detail pembayaran
             $table->unsignedBigInteger('nominal');           // dalam rupiah, contoh: 50000
-            $table->string('periode', 7);                    // format: YYYY-MM, contoh: 2025-06
+            $table->string('periode', 20);                    // format: YYYY-MM, contoh: 2025-06
             $table->string('catatan')->nullable();           // keterangan dari struk / warga
             $table->string('struk_path')->nullable();        // path file foto struk di storage/public
 
