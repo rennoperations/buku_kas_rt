@@ -101,7 +101,6 @@ class IuranController extends Controller
 
             Transaksi::create([
             'user_id'    => auth()->id(), // <--- INI KUNCI UTAMANYA
-            'nama_warga' => auth()->user()->name, // <--- SEKALIAN KITA BUAT DINAMIS!
             'periode'    => '06-2025', 
             'nominal'    => (int) $request->nominal_konfirmasi,
             'bukti_bayar'=> $path,
