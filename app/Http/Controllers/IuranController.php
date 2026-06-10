@@ -164,13 +164,24 @@ class IuranController extends Controller
     // KELOLA DATA WARGA (BENDAHARA)
     // ═══════════════════════════════════════
 
-    public function dataWarga()
+    // ═══════════════════════════════════════
+    // KELOLA DATA WARGA (BENDAHARA)
+    // ═══════════════════════════════════════
+
+    public function dataWarga(Request $request)
     {
-        // Ambil semua data warga dari database
-        $wargas = User::where('role', 'warga')->orderBy('no_rumah')->get();
+        // Fitur Pencarian (Search) diaktifkan
+        $query = User::where('role', 'warga');
+        if ($request->has('q') && $request->q != '') {
+            $query->where(function($q) use ($request) {
+                $q->where('name', 'ilike', '%' . $request->q . '%')
+                  ->orWhere('no_rumah', 'ilike', '%' . $request->q . '%');
+            });
+        }
+        $warga = $query->orderBy('no_rumah')->get();
         
-        // Panggil view datawarga dan kirimkan data $wargas
-        return view('datawarga', compact('wargas')); 
+        // Memanggil file yang TEPAT di folder bendahara
+        return view('bendahara.data-warga', compact('warga')); 
     }
 
     public function tambahWarga(Request $request)
@@ -180,6 +191,7 @@ class IuranController extends Controller
             'email'    => 'required|email|unique:users,email',
             'no_rumah' => 'required|string|max:10',
             'no_wa'    => 'nullable|string|max:20',
+            'password' => 'required|string|min:6', // Password diambil dari form modal
         ]);
 
         User::create([
@@ -188,7 +200,7 @@ class IuranController extends Controller
             'no_rumah' => $request->no_rumah,
             'no_wa'    => $request->no_wa,
             'role'     => 'warga',
-            'password' => \Illuminate\Support\Facades\Hash::make('kasrt123'), 
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password), 
         ]);
 
         return back()->with('success', 'Data Warga berhasil ditambahkan!');
@@ -205,12 +217,19 @@ class IuranController extends Controller
             'no_wa'    => 'nullable|string|max:20',
         ]);
 
-        $warga->update([
+        $data = [
             'name'     => $request->name,
             'email'    => $request->email,
             'no_rumah' => $request->no_rumah,
             'no_wa'    => $request->no_wa,
-        ]);
+        ];
+
+        // Jika bendahara mengetikkan password baru di form edit
+        if ($request->filled('password')) {
+            $data['password'] = \Illuminate\Support\Facades\Hash::make($request->password);
+        }
+
+        $warga->update($data);
 
         return back()->with('success', 'Data Warga berhasil diperbarui!');
     }

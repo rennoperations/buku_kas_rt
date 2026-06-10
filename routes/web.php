@@ -31,10 +31,11 @@ Route::middleware(['auth', 'bendahara'])->group(function () {
     Route::get('/bendahara/verifikasi-pembayaran', [IuranController::class, 'verifikasiPembayaran']);
     
     // ── Data Warga (Sudah Dilengkapi) ──
-    Route::get('/bendahara/data-warga', [IuranController::class, 'dataWarga'])->name('bendahara.data-warga');
-    Route::post('/bendahara/data-warga', [IuranController::class, 'tambahWarga'])->name('bendahara.tambah-warga');
-    Route::post('/bendahara/data-warga/{id}/update', [IuranController::class, 'updateWarga'])->name('bendahara.update-warga');
-    Route::post('/bendahara/data-warga/{id}/hapus', [IuranController::class, 'hapusWarga'])->name('bendahara.hapus-warga');
+    // ── Data Warga ──
+    Route::get('/bendahara/data-warga', [IuranController::class, 'dataWarga']);
+    Route::post('/bendahara/data-warga', [IuranController::class, 'tambahWarga']);
+    Route::post('/bendahara/data-warga/{id}/update', [IuranController::class, 'updateWarga']);
+    Route::post('/bendahara/data-warga/{id}/hapus', [IuranController::class, 'hapusWarga']);
     
     Route::get('/bendahara/pemasukan', [IuranController::class, 'pemasukan']);
     Route::get('/bendahara/laporan', [IuranController::class, 'laporan']);
