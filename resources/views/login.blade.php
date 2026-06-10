@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Masuk — Kas Digital RT</title>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --navy:      #0B2545;
@@ -26,7 +26,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100dvh;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -65,23 +65,28 @@
     }
 
     .brand-name {
-      font-family: 'Instrument Serif', serif;
-      font-size: 16px;
+      font-family: 'Fraunces', serif;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
       color: var(--navy);
     }
 
     .auth-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 30px;
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      font-weight: 600;
       color: var(--navy);
-      line-height: 1.15;
-      margin-bottom: 6px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
     }
 
     .auth-sub {
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 400;
       color: var(--ink-3);
-      margin-bottom: 28px;
+      margin-bottom: 30px;
     }
 
     .auth-sub a {
@@ -97,8 +102,8 @@
       background: var(--red-soft);
       border: 1px solid rgba(229,53,53,.2);
       border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 13px;
+      padding: 11px 15px;
+      font-size: 14px;
       color: #991b1b;
       margin-bottom: 18px;
       display: flex;
@@ -111,8 +116,8 @@
       background: #ECFDF5;
       border: 1px solid rgba(16, 185, 129, 0.3);
       border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 13px;
+      padding: 11px 15px;
+      font-size: 14px;
       color: #047857;
       margin-bottom: 16px;
       display: flex;
@@ -125,21 +130,21 @@
 
     .field label {
       display: block;
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 600;
-      letter-spacing: .05em;
+      letter-spacing: .04em;
       text-transform: uppercase;
       color: var(--ink-2);
-      margin-bottom: 7px;
+      margin-bottom: 8px;
     }
 
     .field input {
       width: 100%;
       border: 1.5px solid var(--border);
       border-radius: 10px;
-      padding: 12px 14px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
+      padding: 13px 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
       color: var(--ink);
       outline: none;
       background: var(--white);
@@ -173,25 +178,26 @@
     }
 
     .remember-row label {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--ink-2);
       cursor: pointer;
     }
 
     .btn-auth {
       width: 100%;
-      padding: 13px;
+      padding: 14px;
       background: var(--navy);
       color: #fff;
       border: none;
       border-radius: 11px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14.5px;
-      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
       cursor: pointer;
       transition: background .2s, transform .15s;
       box-shadow: 0 4px 16px rgba(11,37,69,.2);
       margin-bottom: 14px;
+      letter-spacing: 0.01em;
     }
 
     .btn-auth:hover { background: var(--navy-2); transform: translateY(-1px); }
@@ -205,7 +211,7 @@
     }
 
     .divider-line { flex: 1; height: 1px; background: var(--border); }
-    .divider span { font-size: 12px; color: var(--ink-3); }
+    .divider span { font-size: 13px; color: var(--ink-3); }
 
     .demo-box {
       background: var(--surface);
@@ -215,16 +221,16 @@
     }
 
     .demo-title {
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: .07em;
+      letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--ink-3);
-      margin-bottom: 7px;
+      margin-bottom: 8px;
     }
 
     .demo-item {
-      font-size: 12.5px;
+      font-size: 13.5px;
       color: var(--ink-2);
       line-height: 1.9;
     }
@@ -263,15 +269,17 @@
     }
 
     .right-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 28px;
+      font-family: 'Fraunces', serif;
+      font-size: 32px;
+      font-weight: 600;
       color: #fff;
-      line-height: 1.2;
-      margin-bottom: 10px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
     }
 
     .right-desc {
-      font-size: 14px;
+      font-size: 15px;
       color: rgba(255,255,255,.45);
       line-height: 1.65;
       margin-bottom: 36px;
@@ -299,8 +307,8 @@
       flex-shrink: 0; font-size: 16px;
     }
 
-    .feat-title { font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,.85); }
-    .feat-desc  { font-size: 12px; color: rgba(255,255,255,.35); line-height: 1.5; }
+    .feat-title { font-size: 14.5px; font-weight: 600; color: rgba(255,255,255,.85); }
+    .feat-desc  { font-size: 13px; color: rgba(255,255,255,.35); line-height: 1.5; }
 
     .testi {
       background: rgba(255,255,255,.05);
@@ -310,11 +318,11 @@
     }
 
     .testi-quote {
-      font-family: 'Instrument Serif', serif;
-      font-size: 15px;
+      font-family: 'Fraunces', serif;
+      font-size: 16px;
       font-style: italic;
       color: rgba(255,255,255,.8);
-      line-height: 1.6;
+      line-height: 1.65;
       margin-bottom: 14px;
     }
 
@@ -337,8 +345,8 @@
       flex-shrink: 0;
     }
 
-    .testi-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.75); }
-    .testi-role { font-size: 11.5px; color: rgba(255,255,255,.35); }
+    .testi-name { font-size: 14px; font-weight: 600; color: rgba(255,255,255,.75); }
+    .testi-role { font-size: 12.5px; color: rgba(255,255,255,.35); }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
