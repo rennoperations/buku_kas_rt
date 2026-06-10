@@ -623,20 +623,21 @@
       <div class="section-card" style="background: var(--navy); color: white; padding: 32px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center;">
         <div>
           <div style="font-size: 14px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600;">Saldo Kas Utama</div>
-          <div style="font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 700;">Rp 12.450.000</div>
+          <div style="font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 700;">Rp {{ number_format($totalKas, 0, ',', '.') }}</div>
           <div style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 8px;">Per 1 Juni 2025</div>
         </div>
-        <button class="btn-action btn-setuju" style="padding: 12px 24px; font-size: 14px; background: white; color: var(--navy);">Unduh Laporan (PDF)</button>
+        
+        <a href="{{ url('/bendahara/laporan/pdf') }}" class="btn-action btn-setuju" style="padding: 12px 24px; font-size: 14px; background: white; color: var(--navy); text-decoration: none; display: inline-block; text-align: center;">Unduh Laporan (PDF)</a>
       </div>
 
       <div class="metrics-row">
         <div class="metric-card">
           <div class="metric-label">Total Pemasukan (Tahun Ini)</div>
-          <div class="metric-value">Rp 15.600.000</div>
+          <div class="metric-value">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</div>
         </div>
         <div class="metric-card">
           <div class="metric-label">Total Pengeluaran (Tahun Ini)</div>
-          <div class="metric-value danger">- Rp 3.150.000</div>
+          <div class="metric-value danger">- Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</div>
         </div>
         <div class="metric-card">
           <div class="metric-label">Pertumbuhan Kas</div>

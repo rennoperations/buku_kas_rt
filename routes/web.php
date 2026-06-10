@@ -40,6 +40,7 @@ Route::middleware(['auth', 'bendahara'])->group(function () {
     Route::get('/bendahara/pemasukan', [IuranController::class, 'pemasukan']);
     Route::get('/bendahara/laporan', [IuranController::class, 'laporan']);
     Route::get('/bendahara/pengaturan', [IuranController::class, 'pengaturan']);
+    Route::get('/bendahara/laporan/pdf', [IuranController::class, 'cetakPDF']);
     
     // API untuk Verifikasi Aksi Bendahara
     Route::post('/api/transaksi/{id}/verifikasi', [IuranController::class, 'verifikasiBendahara']);

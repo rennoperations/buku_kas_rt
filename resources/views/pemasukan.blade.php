@@ -620,18 +620,17 @@
 
     <!-- CONTENT -->
     <div class="content">
-      <div class="metrics-row" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="metric-card">
+      <div class="metric-card">
           <div class="metric-label">Total Pemasukan Bulan Ini</div>
-          <div class="metric-value" style="color: var(--teal);">Rp 2.100.000</div>
-          <div class="metric-sub">Dari 42 warga yang sudah lunas</div>
+          <div class="metric-value" style="color: var(--teal);">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</div>
+          <div class="metric-sub">Dari {{ $jumlahWargaLunas }} warga yang sudah lunas</div>
         </div>
+
         <div class="metric-card">
           <div class="metric-label">Proyeksi Sisa Pemasukan</div>
-          <div class="metric-value warning">Rp 400.000</div>
-          <div class="metric-sub">Dari 8 warga yang belum membayar</div>
+          <div class="metric-value warning">Rp {{ number_format($proyeksiSisa, 0, ',', '.') }}</div>
+          <div class="metric-sub">Dari {{ $jumlahWargaPending }} struk warga yang menunggu verifikasi</div>
         </div>
-      </div>
 
       <div class="section-card">
         <div class="section-header">
@@ -652,20 +651,19 @@
             </tr>
           </thead>
           <tbody>
+            @forelse($pemasukanLunas as $item)
             <tr>
-              <td class="td-waktu">05 Jun 2025, 14:30</td>
-              <td class="td-nama">Bapak Budi Santoso</td>
-              <td>Juni 2025</td>
-              <td class="td-nominal" style="color: var(--teal);">+ Rp 50.000</td>
-              <td>Transfer BCA</td>
+              <td>{{ $item->updated_at->format('d M Y, H:i') }}</td>
+              <td class="td-nama">{{ $item->user ? $item->user->name : 'Warga Tidak Diketahui' }}</td>
+              <td>{{ $item->periode }}</td>
+              <td class="td-nominal" style="color: var(--teal);">+ Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
+              <td>Upload/Transfer</td>
             </tr>
+            @empty
             <tr>
-              <td class="td-waktu">04 Jun 2025, 09:15</td>
-              <td class="td-nama">Ibu Linda</td>
-              <td>Juni 2025</td>
-              <td class="td-nominal" style="color: var(--teal);">+ Rp 50.000</td>
-              <td>Transfer Mandiri</td>
+              <td colspan="5" style="text-align: center; padding: 20px; color: var(--ink-soft);">Belum ada riwayat pemasukan kas yang disetujui.</td>
             </tr>
+            @endforelse
           </tbody>
         </table>
       </div>

@@ -38,7 +38,10 @@ class IuranController extends Controller
         try {
             $transaksi = Transaksi::orderBy('created_at', 'desc')->get();
             $totalKas = Transaksi::where('status', 'approved')->sum('nominal');
-            $wargaLunas = Transaksi::where('status', 'approved')->where('periode', 'Juni 2025')->count();
+            
+            // 👇 UBAH 'Juni 2025' MENJADI '06-2025' DI SINI 👇
+            $wargaLunas = Transaksi::where('status', 'approved')->where('periode', '06-2025')->count();
+            
             $wargaPending = Transaksi::where('status', 'pending')->count();
         } catch (\Exception $e) {
             $transaksi = collect([]);
@@ -164,12 +167,57 @@ class IuranController extends Controller
 
     public function pemasukan()
     {
-        return view('pemasukan');
+        try {
+            // 1. Ambil data transaksi yang SUDAH LUNAS (Disetujui)
+            $pemasukanLunas = Transaksi::where('status', 'approved')
+                                       ->orderBy('updated_at', 'desc')
+                                       ->get();
+            $totalPemasukan = $pemasukanLunas->sum('nominal');
+            $jumlahWargaLunas = $pemasukanLunas->count();
+
+            // 2. Ambil data transaksi yang MASIH MENUNGGU (Pending) untuk proyeksi
+            $pemasukanPending = Transaksi::where('status', 'pending')->get();
+            $proyeksiSisa = $pemasukanPending->sum('nominal');
+            $jumlahWargaPending = $pemasukanPending->count();
+
+        } catch (\Exception $e) {
+            $pemasukanLunas = collect([]);
+            $totalPemasukan = 0;
+            $jumlahWargaLunas = 0;
+            $proyeksiSisa = 0;
+            $jumlahWargaPending = 0;
+        }
+
+        return view('pemasukan', compact(
+            'pemasukanLunas', 
+            'totalPemasukan', 
+            'jumlahWargaLunas', 
+            'proyeksiSisa', 
+            'jumlahWargaPending'
+        ));
     }
 
     public function laporan()
     {
-        return view('laporan');
+        try {
+            // Ambil semua transaksi yang sudah lunas
+            $transaksi = Transaksi::where('status', 'approved')->orderBy('updated_at', 'desc')->get();
+            $totalPemasukan = $transaksi->sum('nominal');
+
+            // Karena sistemmu belum ada fitur pengeluaran, kita set 0 sementara
+            $totalPengeluaran = 0; 
+            
+            // Saldo Akhir = Pemasukan - Pengeluaran
+            $totalKas = $totalPemasukan - $totalPengeluaran;
+
+        } catch (\Exception $e) {
+            $transaksi = collect([]);
+            $totalPemasukan = 0;
+            $totalPengeluaran = 0;
+            $totalKas = 0;
+        }
+
+        return view('laporan', compact('transaksi', 'totalPemasukan', 'totalPengeluaran', 'totalKas'));
     }
 
     public function pengaturan()
@@ -257,5 +305,19 @@ class IuranController extends Controller
         $warga->delete();
 
         return back()->with('success', 'Warga berhasil dihapus!');
+    }
+
+    public function cetakPDF()
+    {
+        $transaksi = Transaksi::where('status', 'approved')->orderBy('updated_at', 'desc')->get();
+        $totalPemasukan = $transaksi->sum('nominal');
+        $totalPengeluaran = 0;
+        $totalKas = $totalPemasukan - $totalPengeluaran;
+
+        // Memanggil file template khusus PDF
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf-laporan', compact('transaksi', 'totalPemasukan', 'totalPengeluaran', 'totalKas'));
+        
+        // Mengunduh file dengan nama ini
+        return $pdf->download('Laporan_Kas_RT.pdf');
     }
 }
