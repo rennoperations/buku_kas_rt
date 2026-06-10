@@ -631,18 +631,18 @@
       <div class="metrics-row">
         <div class="metric-card">
           <div class="metric-label">Total Kas RT</div>
-          <div class="metric-value">Rp 12,4 Jt</div>
-          <div class="metric-sub"><span class="up">↑ Rp 150.000</span> dari bulan lalu</div>
+          <div class="metric-value">Rp {{ number_format($totalKas, 0, ',', '.') }}</div>
+          <div class="metric-sub">Berdasarkan total transaksi disetujui</div>
         </div>
         <div class="metric-card">
           <div class="metric-label">Warga Lunas — Juni 2025</div>
-          <div class="metric-value">42<span style="font-size:18px;color:var(--ink-soft)">/50</span></div>
-          <div class="metric-sub">8 warga belum membayar</div>
+          <div class="metric-value">{{ $wargaLunas }}<span style="font-size:18px;color:var(--ink-soft)"> Warga</span></div>
+          <div class="metric-sub">Telah diverifikasi bulan ini</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Jumlah Warga Telat Bayar</div>
-          <div class="metric-value danger">8</div>
-          <div class="metric-sub"><span class="down">↓ lebih banyak</span> dari bulan lalu</div>
+          <div class="metric-label">Jumlah Transaksi Menunggu</div>
+          <div class="metric-value warning">{{ $wargaPending }}</div>
+          <div class="metric-sub">Menunggu persetujuan Anda</div>
         </div>
       </div>
 
@@ -715,7 +715,18 @@
       new Date().toLocaleDateString('id-ID', opts);
 
     /* ── Data dummy (nanti diganti fetch dari Laravel API) ── */
-    let transaksiData = @json($transaksi);
+    /* ── Data dinamis dari Laravel (Diterjemahkan) ── */
+    let transaksiData = @json($transaksi->map(function($t) {
+        return [
+            'id'      => $t->id,
+            'nama'    => $t->user ? $t->user->name : 'Warga Tidak Diketahui',
+            'periode' => $t->periode,
+            'nominal' => $t->nominal,
+            'waktu'   => $t->created_at->format('d M Y, H:i'),
+            'status'  => $t->status,
+            'struk'   => $t->struk_path ? asset('storage/' . $t->struk_path) : null
+        ];
+    }));
 
     let activeId = null;
 
@@ -782,9 +793,16 @@
       document.getElementById('modalDetail').innerHTML = `
         <div class="detail-item"><label>Nama</label><span>${t.nama}</span></div>
         <div class="detail-item"><label>Periode</label><span>${t.periode}</span></div>
-        <div class="detail-item"><label>Nominal (AI OCR)</label><span>Rp ${t.nominal.toLocaleString('id-ID')}</span></div>
+        <div class="detail-item"><label>Nominal</label><span>Rp ${t.nominal.toLocaleString('id-ID')}</span></div>
         <div class="detail-item"><label>Waktu Upload</label><span>${t.waktu}</span></div>
       `;
+      
+      /* Menampilkan Gambar Struk Asli */
+      const imgWrap = document.getElementById('modalImgWrap');
+      imgWrap.innerHTML = t.struk 
+        ? `<img src="${t.struk}" style="max-width:100%; max-height:100%; object-fit:contain; border-radius:8px;">` 
+        : `<span style="color:var(--ink-soft)">Tidak ada lampiran struk</span>`;
+
       /* Tombol aksi di modal */
       const isPending = t.status === 'pending';
       document.getElementById('modalBtnSetuju').style.display = isPending ? '' : 'none';

@@ -16,7 +16,11 @@ class IuranController extends Controller
     public function indexWarga()
     {
         try {
-            $riwayat = Transaksi::orderBy('created_at', 'desc')->get();
+            // 👇 BARIS INI YANG DIUBAH (Ditambahkan where user_id) 👇
+            $riwayat = Transaksi::where('user_id', auth()->id())
+                                ->orderBy('created_at', 'desc')
+                                ->get();
+                                
             $totalKas = Transaksi::where('status', 'approved')->sum('nominal');
         } catch (\Exception $e) {
             $riwayat = collect([]);

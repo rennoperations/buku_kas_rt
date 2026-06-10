@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     /* ═══════════════════════════════════════════
-       TOKENS — same palette as Bendahara
+       TOKENS
     ═══════════════════════════════════════════ */
     :root {
       --navy:       #0F2A4A;
@@ -35,7 +35,7 @@
 
     html, body {
       height: 100%;
-      overflow: hidden; /* managed per-screen */
+      overflow: hidden; 
     }
 
     body {
@@ -43,14 +43,13 @@
       background: var(--surface);
       color: var(--ink);
       font-size: 14px;
-      /* Simulate phone width in browser */
       max-width: 430px;
       margin: 0 auto;
       position: relative;
     }
 
     /* ═══════════════════════════════════════════
-       SCREENS (single-page navigation)
+       SCREENS 
     ═══════════════════════════════════════════ */
     .screen {
       display: none;
@@ -66,49 +65,6 @@
     @keyframes screenIn {
       from { opacity: 0; transform: translateX(12px); }
       to   { opacity: 1; transform: translateX(0); }
-    }
-
-    /* ═══════════════════════════════════════════
-       HEADER (mobile topbar)
-    ═══════════════════════════════════════════ */
-    .mobile-header {
-      background: var(--navy);
-      color: #fff;
-      padding: 52px 20px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Decorative circle */
-    .mobile-header::before {
-      content: '';
-      position: absolute;
-      top: -40px; right: -40px;
-      width: 160px; height: 160px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.05);
-    }
-
-    .mobile-header::after {
-      content: '';
-      position: absolute;
-      top: 20px; right: 60px;
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.04);
-    }
-
-    .header-greeting {
-      font-size: 12px;
-      color: rgba(255,255,255,.55);
-      margin-bottom: 3px;
-    }
-
-    .header-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      color: #fff;
     }
 
     /* ═══════════════════════════════════════════
@@ -152,16 +108,6 @@
       position: relative;
     }
 
-    .notif-dot {
-      position: absolute;
-      top: 8px; right: 8px;
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--red);
-      border: 1.5px solid var(--navy);
-    }
-
-    /* Status card */
     .status-card {
       background: rgba(255,255,255,.1);
       border: 1px solid rgba(255,255,255,.12);
@@ -207,7 +153,6 @@
 
     .kas-sub { font-size: 11.5px; color: rgba(255,255,255,.4); }
 
-    /* CTA Button */
     .btn-bayar {
       display: flex;
       align-items: center;
@@ -230,39 +175,12 @@
 
     .btn-bayar:active { opacity: .85; transform: scale(.98); }
 
-    /* Riwayat */
-    .section-wrap {
-      padding: 20px 20px 0;
-    }
+    .section-wrap { padding: 20px 20px 0; }
+    .section-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .section-heading { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); }
+    .btn-lihat-semua { font-size: 12.5px; font-weight: 600; color: var(--blue); background: none; border: none; cursor: pointer; }
 
-    .section-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-    }
-
-    .section-heading {
-      font-family: 'Syne', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--navy);
-    }
-
-    .btn-lihat-semua {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--blue);
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    .riwayat-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .riwayat-list { display: flex; flex-direction: column; gap: 8px; }
 
     .riwayat-item {
       background: var(--white);
@@ -280,20 +198,10 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .riwayat-item:nth-child(1) { animation-delay: .05s; }
-    .riwayat-item:nth-child(2) { animation-delay: .10s; }
-    .riwayat-item:nth-child(3) { animation-delay: .15s; }
-
-    .riwayat-left {}
     .riwayat-bulan { font-size: 13px; font-weight: 600; color: var(--navy); }
     .riwayat-nominal { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
 
-    .chip {
-      padding: 4px 10px;
-      border-radius: 99px;
-      font-size: 11.5px;
-      font-weight: 700;
-    }
+    .chip { padding: 4px 10px; border-radius: 99px; font-size: 11.5px; font-weight: 700; }
     .chip-lunas   { background: var(--teal-soft); color: var(--teal); }
     .chip-gagal   { background: var(--red-soft);  color: var(--red); }
     .chip-pending { background: var(--amber-soft); color: var(--amber); }
@@ -320,26 +228,9 @@
       flex-shrink: 0;
     }
 
-    .form-header-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: #fff;
-    }
+    .form-header-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #fff; }
+    .form-close-btn { margin-left: auto; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.1); border: none; color: rgba(255,255,255,.7); font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-    .form-close-btn {
-      margin-left: auto;
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.1);
-      border: none;
-      color: rgba(255,255,255,.7);
-      font-size: 18px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-    }
-
-    /* Deadline alert */
     .deadline-alert {
       margin: 16px 20px 0;
       background: var(--amber-soft);
@@ -354,389 +245,96 @@
       color: #92400E;
     }
 
-    /* Form fields */
-    .form-body {
-      padding: 16px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .form-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 16px; }
+    .field-label { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-mid); margin-bottom: 8px; display: block; }
+    .field-info { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: var(--navy); }
 
-    .field-group {}
-    .field-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      color: var(--ink-mid);
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    /* Info readonly fields */
-    .field-info {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--navy);
-    }
-
-    /* Bank highlight card */
-    .bank-card {
-      background: var(--navy);
-      border-radius: 12px;
-      padding: 16px;
-      color: #fff;
-    }
-
+    .bank-card { background: var(--navy); border-radius: 12px; padding: 16px; color: #fff; }
     .bank-label-sm { font-size: 10.5px; color: rgba(255,255,255,.45); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
-    .bank-name     { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
-    .bank-row      { display: flex; align-items: center; justify-content: space-between; }
-    .bank-norek    { font-family: 'Geist', monospace; font-size: 18px; font-weight: 600; letter-spacing: .05em; }
-    .bank-an       { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 4px; }
+    .bank-name { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+    .bank-row { display: flex; align-items: center; justify-content: space-between; }
+    .bank-norek { font-family: 'Geist', monospace; font-size: 18px; font-weight: 600; letter-spacing: .05em; }
+    .bank-an { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 4px; }
 
-    .copy-btn {
-      background: rgba(255,255,255,.12);
-      border: none;
-      border-radius: 8px;
-      padding: 7px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #fff;
-      cursor: pointer;
-      transition: background .15s;
-    }
+    .copy-btn { background: rgba(255,255,255,.12); border: none; border-radius: 8px; padding: 7px 12px; font-size: 12px; font-weight: 600; color: #fff; cursor: pointer; transition: background .15s; }
     .copy-btn:active { background: rgba(255,255,255,.2); }
 
-    /* Upload zone */
-    .upload-zone {
-      border: 2px dashed var(--border);
-      border-radius: 12px;
-      background: var(--white);
-      padding: 28px 16px;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color .2s, background .2s;
-      position: relative;
-    }
+    .upload-zone { border: 2px dashed var(--border); border-radius: 12px; background: var(--white); padding: 28px 16px; text-align: center; cursor: pointer; transition: border-color .2s, background .2s; position: relative; }
+    .upload-zone:hover, .upload-zone.dragover { border-color: var(--blue); background: var(--blue-soft); }
+    .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; font-size: 0; }
 
-    .upload-zone:hover, .upload-zone.dragover {
-      border-color: var(--blue);
-      background: var(--blue-soft);
-    }
-
-    .upload-zone input {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      font-size: 0;
-    }
-
-    .upload-icon {
-      width: 44px; height: 44px;
-      background: var(--blue-soft);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 10px;
-    }
-
+    .upload-icon { width: 44px; height: 44px; background: var(--blue-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
     .upload-text-main { font-size: 13.5px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
-    .upload-text-sub  { font-size: 11.5px; color: var(--ink-soft); }
+    .upload-text-sub { font-size: 11.5px; color: var(--ink-soft); }
 
-    /* Preview */
-    .upload-preview {
-      display: none;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      background: var(--white);
-    }
-
-    .upload-preview img {
-      width: 100%;
-      max-height: 180px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .preview-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 12px;
-      border-top: 1px solid var(--border);
-    }
-
+    .upload-preview { display: none; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--white); }
+    .upload-preview img { width: 100%; max-height: 180px; object-fit: contain; display: block; }
+    .preview-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-top: 1px solid var(--border); }
     .preview-fname { font-size: 12px; font-weight: 500; color: var(--ink-mid); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
-    .preview-rm    { background: none; border: none; font-size: 12px; font-weight: 700; color: var(--red); cursor: pointer; }
+    .preview-rm { background: none; border: none; font-size: 12px; font-weight: 700; color: var(--red); cursor: pointer; }
 
-    /* Nominal input */
-    .nominal-wrap {
-      display: flex;
-      align-items: center;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      background: var(--white);
-      transition: border-color .2s;
-    }
-
+    .nominal-wrap { display: flex; align-items: center; border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--white); transition: border-color .2s; }
     .nominal-wrap:focus-within { border-color: var(--blue); }
     .nominal-wrap.locked { background: var(--surface); border-style: dashed; opacity: .65; pointer-events: none; }
+    .nominal-prefix { padding: 12px 14px; font-size: 14px; font-weight: 700; color: var(--ink-soft); background: var(--surface); border-right: 1.5px solid var(--border); }
+    #nominalInput { flex: 1; border: none; outline: none; background: transparent; font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 600; color: var(--navy); padding: 12px 14px; }
 
-    .nominal-prefix {
-      padding: 12px 14px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ink-soft);
-      background: var(--surface);
-      border-right: 1.5px solid var(--border);
-    }
-
-    #nominalInput {
-      flex: 1;
-      border: none;
-      outline: none;
-      background: transparent;
-      font-family: 'Geist', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--navy);
-      padding: 12px 14px;
-    }
-
-    /* Catatan */
-    .notes-input {
-      width: 100%;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-family: 'Geist', sans-serif;
-      font-size: 13.5px;
-      color: var(--ink);
-      outline: none;
-      resize: none;
-      min-height: 72px;
-      transition: border-color .2s;
-    }
+    .notes-input { width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px; font-family: 'Geist', sans-serif; font-size: 13.5px; color: var(--ink); outline: none; resize: none; min-height: 72px; transition: border-color .2s; }
     .notes-input:focus { border-color: var(--blue); }
-    .notes-input::placeholder { color: var(--ink-soft); }
 
-    /* Scan button & submit */
-    .btn-scan {
-      width: 100%;
-      padding: 14px;
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-family: 'Syne', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: opacity .15s, transform .1s;
-    }
-
-    .btn-scan:active  { opacity: .85; transform: scale(.98); }
+    .btn-scan { width: 100%; padding: 14px; background: var(--navy); color: #fff; border: none; border-radius: 12px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity .15s, transform .1s; }
+    .btn-scan:active { opacity: .85; transform: scale(.98); }
     .btn-scan.confirm { background: var(--teal); }
     .btn-scan:disabled { opacity: .5; pointer-events: none; }
+    .btn-batal { width: 100%; padding: 13px; background: var(--surface); color: var(--ink-mid); border: 1px solid var(--border); border-radius: 12px; font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; margin-top: 8px; transition: background .15s; }
 
-    .btn-batal {
-      width: 100%;
-      padding: 13px;
-      background: var(--surface);
-      color: var(--ink-mid);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      font-family: 'Geist', sans-serif;
-      font-size: 13.5px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 8px;
-      transition: background .15s;
-    }
-
-    .btn-batal:active { background: var(--border); }
-
-    /* Alert inside form */
-    .form-alert {
-      display: none;
-      padding: 11px 14px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 500;
-      animation: fadeUp .25s ease both;
-    }
-
+    .form-alert { display: none; padding: 11px 14px; border-radius: 10px; font-size: 13px; font-weight: 500; animation: fadeUp .25s ease both; }
     .form-alert.success { background: var(--teal-soft); color: #065F46; display: flex; gap: 8px; align-items: center; }
-    .form-alert.error   { background: var(--red-soft);  color: #991B1B; display: flex; gap: 8px; align-items: center; }
+    .form-alert.error { background: var(--red-soft); color: #991B1B; display: flex; gap: 8px; align-items: center; }
     .form-alert.warning { background: var(--amber-soft); color: #92400E; display: flex; gap: 8px; align-items: center; }
 
-    /* Spinner */
     @keyframes spin { to { transform: rotate(360deg); } }
-    .spinner {
-      width: 16px; height: 16px;
-      border: 2px solid rgba(255,255,255,.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin .65s linear infinite;
-      display: none;
-    }
+    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .65s linear infinite; display: none; }
 
     /* ═══════════════════════════════════════════
        BOTTOM NAVIGATION
     ═══════════════════════════════════════════ */
     .bottom-nav {
-      position: fixed;
-      bottom: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 430px;
-      height: var(--nav-h);
-      background: var(--white);
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      z-index: 100;
-      box-shadow: 0 -4px 20px rgba(15,42,74,.06);
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; height: var(--nav-h); background: var(--white); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-around; z-index: 100; box-shadow: 0 -4px 20px rgba(15,42,74,.06);
     }
 
-    .nav-tab {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      padding: 10px 4px;
-      cursor: pointer;
-      border: none;
-      background: none;
-      color: var(--ink-soft);
-      font-family: 'Geist', sans-serif;
-      font-size: 10.5px;
-      font-weight: 500;
-      transition: color .15s;
-    }
-
-    .nav-tab.active     { color: var(--blue); }
-    .nav-tab svg        { transition: transform .15s; }
-    .nav-tab:active svg { transform: scale(.85); }
-
-    /* FAB-style center bayar button */
-    .nav-tab.nav-bayar {
-      position: relative;
-      top: -8px;
-    }
-
-    .nav-bayar-circle {
-      width: 52px; height: 52px;
-      border-radius: 50%;
-      background: var(--blue);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 14px rgba(30,111,217,.4);
-      transition: transform .15s;
-    }
-
+    .nav-tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 4px; cursor: pointer; border: none; background: none; color: var(--ink-soft); font-family: 'Geist', sans-serif; font-size: 10.5px; font-weight: 500; transition: color .15s; }
+    .nav-tab.active { color: var(--blue); }
+    .nav-tab.nav-bayar { position: relative; top: -8px; }
+    .nav-bayar-circle { width: 52px; height: 52px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(30,111,217,.4); transition: transform .15s; }
     .nav-tab.nav-bayar:active .nav-bayar-circle { transform: scale(.9); }
 
     /* ═══════════════════════════════════════════
        SUCCESS SHEET
     ═══════════════════════════════════════════ */
-    .success-sheet {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(10,20,35,.6);
-      backdrop-filter: blur(4px);
-      z-index: 200;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
+    .success-sheet { display: none; position: fixed; inset: 0; background: rgba(10,20,35,.6); backdrop-filter: blur(4px); z-index: 200; align-items: flex-end; justify-content: center; }
     .success-sheet.open { display: flex; }
-
-    .success-box {
-      background: var(--white);
-      border-radius: 20px 20px 0 0;
-      padding: 32px 24px 40px;
-      width: 100%;
-      max-width: 430px;
-      text-align: center;
-      animation: slideUp .35s cubic-bezier(.22,.68,0,1.2) both;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to   { transform: translateY(0); }
-    }
-
-    .success-icon {
-      width: 64px; height: 64px;
-      border-radius: 50%;
-      background: var(--teal-soft);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 16px;
-    }
-
+    .success-box { background: var(--white); border-radius: 20px 20px 0 0; padding: 32px 24px 40px; width: 100%; max-width: 430px; text-align: center; animation: slideUp .35s cubic-bezier(.22,.68,0,1.2) both; }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .success-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--teal-soft); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
     .success-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-    .success-sub   { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
-
-    .success-detail {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin: 20px 0;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
+    .success-sub { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+    .success-detail { background: var(--surface); border-radius: 12px; padding: 14px 16px; margin: 20px 0; text-align: left; display: flex; flex-direction: column; gap: 10px; }
+    .detail-row { display: flex; justify-content: space-between; align-items: center; }
     .detail-row span:first-child { font-size: 12px; color: var(--ink-soft); }
-    .detail-row span:last-child  { font-size: 13px; font-weight: 600; color: var(--navy); }
-
-    .btn-done {
-      width: 100%;
-      padding: 14px;
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-family: 'Syne', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
+    .detail-row span:last-child { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .btn-done { width: 100%; padding: 14px; background: var(--navy); color: #fff; border: none; border-radius: 12px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; }
   </style>
 </head>
 <body>
 
-  <!-- ════════════════════════════════════════
-       SCREEN 1: DASHBOARD WARGA
-  ════════════════════════════════════════ -->
   <div class="screen active" id="screenDashboard">
 
-    <!-- Header navy -->
     <div class="dash-header">
       <div class="dash-top">
         <div>
           <div class="dash-greeting">Selamat datang,</div>
-          <div class="dash-name">Pak Ahmad Hidayat</div>
+          <div class="dash-name">{{ auth()->user()->name }}</div>
         </div>
         <button class="notif-btn">
           <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
@@ -744,103 +342,66 @@
         </button>
       </div>
 
-      <!-- Status Card -->
       <div class="status-card">
-        <div class="status-label">Status Pembayaran</div>
-        <div class="status-badge belum">
+        <div class="status-label">Status Pembayaran Anda</div>
+        <div class="status-badge lunas">
           <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
-          BELUM LUNAS
+          AKTIF
         </div>
-        <div class="status-period">Juni 2025</div>
 
-        <div class="kas-label">Saldo Kas RT</div>
-        <div class="kas-amount">Rp 12.450.000</div>
-        <div class="kas-sub">Diperbarui 5 Jun 2025, 20:15</div>
+        <div class="kas-label">Total Saldo Kas RT Saat Ini</div>
+        <div class="kas-amount">Rp {{ number_format($totalKas ?? 0, 0, ',', '.') }}</div>
 
-        <button class="btn-bayar" onclick="goTo('screenForm')">
+        <button class="btn-bayar" onclick="navGo('screenForm','tab-bayar')">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 10h18M7 15h1m4 0h1M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>
-          Bayar Kas Bulan Ini
+          Bayar Iuran
         </button>
       </div>
     </div>
 
-    <!-- Riwayat Pembayaran -->
     <div class="section-wrap">
       <div class="section-row">
-        <div class="section-heading">Riwayat Pembayaran</div>
-        <button class="btn-lihat-semua">Lihat Semua</button>
+        <div class="section-heading">Riwayat Terbaru</div>
+        <button class="btn-lihat-semua" onclick="navGo('screenRiwayat','tab-riwayat')">Lihat Semua</button>
       </div>
 
       <div class="riwayat-list">
-        <div class="riwayat-item">
-          <div class="riwayat-left">
-            <div class="riwayat-bulan">Mei 2025</div>
-            <div class="riwayat-nominal">Rp 50.000</div>
+        @forelse ($riwayat->take(3) as $item)
+          <div class="riwayat-item">
+            <div class="riwayat-left">
+              <div class="riwayat-bulan">Periode {{ $item->periode }}</div>
+              <div class="riwayat-nominal">Rp {{ number_format($item->nominal, 0, ',', '.') }} • {{ $item->catatan ?? 'Pembayaran Iuran' }}</div>
+            </div>
+            @if($item->status == 'approved')
+              <span class="chip chip-lunas">Lunas</span>
+            @elseif($item->status == 'pending')
+              <span class="chip chip-pending">Menunggu</span>
+            @else
+              <span class="chip chip-gagal">Gagal</span>
+            @endif
           </div>
-          <span class="chip chip-lunas">Lunas</span>
-        </div>
-        <div class="riwayat-item">
-          <div class="riwayat-left">
-            <div class="riwayat-bulan">April 2025</div>
-            <div class="riwayat-nominal">Rp 50.000</div>
+        @empty
+          <div style="text-align: center; padding: 20px; color: var(--ink-soft); font-size: 13px; border: 1px dashed var(--border); border-radius: 12px;">
+            Belum ada riwayat pembayaran.
           </div>
-          <span class="chip chip-lunas">Lunas</span>
-        </div>
-        <div class="riwayat-item">
-          <div class="riwayat-left">
-            <div class="riwayat-bulan">Maret 2025</div>
-            <div class="riwayat-nominal">Rp 50.000</div>
-          </div>
-          <span class="chip chip-lunas">Lunas</span>
-        </div>
+        @endforelse
       </div>
     </div>
   </div>
 
 
-  <!-- ════════════════════════════════════════
-       SCREEN 2: FORM BAYAR KAS
-  ════════════════════════════════════════ -->
   <div class="screen" id="screenForm">
-
-    <!-- Header -->
     <div class="form-header">
-      <button class="back-btn" onclick="goTo('screenDashboard')">
+      <button class="back-btn" onclick="navGo('screenDashboard','tab-beranda')">
         <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
       </button>
       <div class="form-header-title">Bayar Kas</div>
-      <button class="form-close-btn" onclick="goTo('screenDashboard')">×</button>
     </div>
 
-    <!-- Deadline Alert -->
-    <div class="deadline-alert">
-      <svg width="15" height="15" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-      Batas pembayaran: <strong>10 Juni 2025</strong>
-    </div>
-
-    <!-- Form Body -->
     <div class="form-body">
 
-      <!-- Periode & Jumlah -->
       <div class="field-group">
-        <label class="field-label">Periode Pembayaran</label>
-        <div class="field-info">Juni 2025</div>
-      </div>
-
-      <div class="field-group">
-        <label class="field-label">Jumlah Kas</label>
-        <div class="field-info">Rp 50.000</div>
-      </div>
-
-      <!-- Metode Pembayaran -->
-      <div class="field-group">
-        <label class="field-label">Metode Pembayaran</label>
-        <div class="field-info">Transfer Bank</div>
-      </div>
-
-      <!-- Info Rekening -->
-      <div class="field-group">
-        <label class="field-label">Rekening Tujuan</label>
+        <label class="field-label">Rekening Tujuan RT</label>
         <div class="bank-card">
           <div class="bank-label-sm">Rekening Transfer</div>
           <div class="bank-name">BCA</div>
@@ -854,21 +415,18 @@
         </div>
       </div>
 
-      <!-- Upload Bukti -->
       <div class="field-group">
         <label class="field-label">Upload Bukti Transfer *</label>
 
-        <!-- Drop zone -->
         <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
           <input type="file" id="fileInput" accept="image/*" capture="environment" onchange="handleFile(event)">
           <div class="upload-icon">
             <svg width="20" height="20" fill="none" stroke="var(--blue)" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           </div>
           <div class="upload-text-main">Klik untuk upload foto/screenshot</div>
-          <div class="upload-text-sub">JPG, PNG, HEIC • Maks 5MB</div>
+          <div class="upload-text-sub">JPG, PNG • Maks 5MB</div>
         </div>
 
-        <!-- Preview -->
         <div class="upload-preview" id="uploadPreview">
           <img id="previewImg" src="#" alt="Preview">
           <div class="preview-bar">
@@ -878,7 +436,6 @@
         </div>
       </div>
 
-      <!-- Nominal (diisi AI) -->
       <div class="field-group">
         <label class="field-label">
           Nominal Terdeteksi AI
@@ -890,97 +447,64 @@
         </div>
       </div>
 
-      <!-- Catatan -->
       <div class="field-group">
-        <label class="field-label">Catatan (Opsional)</label>
-        <textarea class="notes-input" placeholder="Tambahkan catatan jika ada…" id="notesInput"></textarea>
+        <label class="field-label">Catatan Tambahan (Opsional)</label>
+        <textarea class="notes-input" placeholder="Misal: Iuran untuk bulan Juni & Juli..." id="notesInput"></textarea>
       </div>
 
-      <!-- Alert -->
       <div class="form-alert" id="formAlert"></div>
 
-      <!-- Tombol -->
       <button class="btn-scan" id="btnAksi" onclick="handleAksi()">
         <span class="spinner" id="btnSpinner"></span>
         <svg id="btnIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         <span id="btnLabel">Scan Struk dengan AI</span>
       </button>
 
-      <button class="btn-batal" onclick="goTo('screenDashboard')">Batal</button>
+      <button class="btn-batal" onclick="navGo('screenDashboard','tab-beranda')">Batal</button>
     </div>
   </div>
-<!-- ════════════════════════════════════════
-       SCREEN 3: RIWAYAT FULL
-  ════════════════════════════════════════ -->
+
   <div class="screen" id="screenRiwayat">
     <div class="form-header" style="padding-bottom: 20px;">
-      <div class="form-header-title">Riwayat Pembayaran</div>
+      <div class="form-header-title">Seluruh Riwayat Pembayaran</div>
     </div>
     <div class="section-wrap" style="padding-top: 24px;">
       <div class="riwayat-list">
-        <!-- 2025 -->
-        <div style="font-size: 12px; font-weight: 700; color: var(--ink-soft); margin: 8px 0 4px;">Tahun 2025</div>
-        <div class="riwayat-item">
-          <div class="riwayat-left">
-            <div class="riwayat-bulan">Mei 2025</div>
-            <div class="riwayat-nominal">Rp 50.000 • Transfer BCA</div>
+        @forelse ($riwayat as $item)
+          <div class="riwayat-item">
+            <div class="riwayat-left">
+              <div class="riwayat-bulan">Periode {{ $item->periode }}</div>
+              <div class="riwayat-nominal">Rp {{ number_format($item->nominal, 0, ',', '.') }} • {{ $item->catatan ?? 'Pembayaran Iuran' }}</div>
+            </div>
+            @if($item->status == 'approved')
+              <span class="chip chip-lunas">Lunas</span>
+            @elseif($item->status == 'pending')
+              <span class="chip chip-pending">Menunggu</span>
+            @else
+              <span class="chip chip-gagal">Gagal</span>
+            @endif
           </div>
-          <span class="chip chip-lunas">Lunas</span>
-        </div>
-        <div class="riwayat-item">
-          <div class="riwayat-left">
-            <div class="riwayat-bulan">April 2025</div>
-            <div class="riwayat-nominal">Rp 50.000 • Transfer BCA</div>
+        @empty
+          <div style="text-align: center; padding: 30px; color: var(--ink-soft); font-size: 13px;">
+            Anda belum memiliki riwayat pembayaran apapun.
           </div>
-          <span class="chip chip-lunas">Lunas</span>
-        </div>
-        <div class="riwayat-item">
-          <div class="riwayat-left">
-            <div class="riwayat-bulan">Maret 2025</div>
-            <div class="riwayat-nominal">Rp 50.000 • Tunai</div>
-          </div>
-          <span class="chip chip-lunas">Lunas</span>
-        </div>
-        <div class="riwayat-item">
-          <div class="riwayat-left">
-            <div class="riwayat-bulan">Februari 2025</div>
-            <div class="riwayat-nominal">Rp 50.000 • Ditolak (Struk Buram)</div>
-          </div>
-          <span class="chip chip-gagal">Gagal</span>
-        </div>
+        @endforelse
       </div>
     </div>
   </div>
 
-  <!-- ════════════════════════════════════════
-       SCREEN 4: PROFIL
-  ════════════════════════════════════════ -->
   <div class="screen" id="screenProfil">
     <div class="dash-header" style="text-align: center; padding-top: 60px;">
-      <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 700; color: white;">AH</div>
-      <div class="dash-name">Pak Ahmad Hidayat</div>
-      <div class="dash-greeting" style="margin-top: 4px;">Warga No. Rumah A-01</div>
+      <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 700; color: white;">
+        {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+      </div>
+      <div class="dash-name">{{ auth()->user()->name }}</div>
+      <div class="dash-greeting" style="margin-top: 4px;">Warga No. Rumah {{ auth()->user()->no_rumah }}</div>
     </div>
     
     <div class="section-wrap" style="padding-top: 24px;">
       <div class="riwayat-list">
-        <div class="riwayat-item" style="cursor: pointer;">
-          <div class="riwayat-left">
-            <div class="riwayat-bulan">Informasi Pribadi</div>
-            <div class="riwayat-nominal">Ubah nama atau nomor HP</div>
-          </div>
-          <svg width="20" height="20" fill="none" stroke="var(--ink-soft)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-        </div>
-        <div class="riwayat-item" style="cursor: pointer;">
-          <div class="riwayat-left">
-            <div class="riwayat-bulan">Ubah Password</div>
-            <div class="riwayat-nominal">Perbarui kata sandi akun Anda</div>
-          </div>
-          <svg width="20" height="20" fill="none" stroke="var(--ink-soft)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-        </div>
-        
-        <!-- Tombol Logout -->
-        <form method="POST" action="/logout" style="margin-top: 16px;">
+        <form method="POST" action="{{ route('logout') }}" style="margin-top: 16px;">
           @csrf
           <button type="submit" style="width: 100%; padding: 14px; background: var(--red-soft); color: var(--red); border: 1px solid rgba(229,53,53,0.3); border-radius: 12px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer;">
             Keluar (Logout)
@@ -989,16 +513,14 @@
       </div>
     </div>
   </div>
-  <!-- ════════════════════════════════════════
-       BOTTOM NAVIGATION
-  ════════════════════════════════════════ -->
+
   <nav class="bottom-nav">
     <button class="nav-tab active" id="tab-beranda" onclick="navGo('screenDashboard','tab-beranda')">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       Beranda
     </button>
 
-    <button class="nav-tab nav-bayar" onclick="navGo('screenForm','tab-bayar')">
+    <button class="nav-tab nav-bayar" id="tab-bayar" onclick="navGo('screenForm','tab-bayar')">
       <div class="nav-bayar-circle">
         <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </div>
@@ -1016,21 +538,15 @@
     </button>
   </nav>
 
-  <!-- ════════════════════════════════════════
-       SUCCESS BOTTOM SHEET
-  ════════════════════════════════════════ -->
   <div class="success-sheet" id="successSheet">
     <div class="success-box">
       <div class="success-icon">
         <svg width="28" height="28" fill="none" stroke="var(--teal)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       </div>
       <div class="success-title">Pembayaran Terkirim!</div>
-      <div class="success-sub">Menunggu verifikasi dari bendahara RT dalam 1×24 jam.</div>
+      <div class="success-sub">Menunggu verifikasi dari bendahara RT.</div>
 
       <div class="success-detail">
-        <div class="detail-row">
-          <span>Periode</span><span>Juni 2025</span>
-        </div>
         <div class="detail-row">
           <span>Nominal</span><span id="successNominal">—</span>
         </div>
@@ -1043,9 +559,6 @@
     </div>
   </div>
 
-  <!-- ════════════════════════════════════════
-       JAVASCRIPT
-  ════════════════════════════════════════ -->
   <script>
     /* ── State ───────────────────────────────── */
     let tahap    = 1;       // 1=scan, 2=konfirmasi
@@ -1191,7 +704,7 @@
       resetKeTahap1();
       hapusFile();
       document.getElementById('notesInput').value = '';
-      goTo('screenDashboard');
+      window.location.reload(); // Memuat ulang halaman agar data riwayat langsung ter-update
     }
 
     /* ── Helpers ─────────────────────────────── */
