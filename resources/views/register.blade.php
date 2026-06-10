@@ -438,12 +438,12 @@
           <label for="nomor_hp">Nomor HP / WhatsApp</label>
           <input type="tel"
                  id="nomor_hp"
-                 name="nomor_hp"
-                 value="{{ old('nomor_hp') }}"
+                 name="no_wa" 
+                 value="{{ old('no_wa') }}"
                  placeholder="08xxxxxxxxxx"
-                 class="{{ $errors->has('nomor_hp') ? 'is-invalid' : '' }}"
+                 class="{{ $errors->has('no_wa') ? 'is-invalid' : '' }}"
                  required>
-          @error('nomor_hp')
+          @error('no_wa')
             <div class="field-error">{{ $message }}</div>
           @enderror
         </div>

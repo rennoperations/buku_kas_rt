@@ -101,7 +101,7 @@ class IuranController extends Controller
 
             Transaksi::create([
                 'nama_warga' => 'Pak Ahmad Hidayat', // Ganti dengan auth()->user()->name setelah ada login
-                'periode'    => 'Juni 2025',
+                'periode'    => '06-2025', // Ganti dengan input dari user jika perlu
                 'nominal'    => (int) $request->nominal_konfirmasi,
                 'bukti_bayar'=> $path,
                 'catatan'    => $request->catatan,
