@@ -12,13 +12,12 @@ class Transaksi extends Model
     // Sesuaikan dengan nama kolom di file migrasi terbaru
     protected $fillable = [
         'user_id',
-        'nominal',
+        'nama_warga',
         'periode',
+        'nominal',
+        'bukti_bayar',
         'catatan',
-        'struk_path',
         'status',
-        'verified_by',
-        'verified_at'
     ];
 
     // Beritahu Laravel bahwa kolom verified_at adalah format tanggal/waktu

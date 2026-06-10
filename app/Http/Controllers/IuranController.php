@@ -100,12 +100,13 @@ class IuranController extends Controller
             $path = $request->file('bukti_bayar')->store('bukti_transfer', 'public');
 
             Transaksi::create([
-                'nama_warga' => 'Pak Ahmad Hidayat', // Ganti dengan auth()->user()->name setelah ada login
-                'periode'    => '06-2025', // Ganti dengan input dari user jika perlu
-                'nominal'    => (int) $request->nominal_konfirmasi,
-                'bukti_bayar'=> $path,
-                'catatan'    => $request->catatan,
-                'status'     => 'pending',
+            'user_id'    => auth()->id(), // <--- INI KUNCI UTAMANYA
+            'nama_warga' => auth()->user()->name, // <--- SEKALIAN KITA BUAT DINAMIS!
+            'periode'    => '06-2025', 
+            'nominal'    => (int) $request->nominal_konfirmasi,
+            'bukti_bayar'=> $path,
+            'catatan'    => $request->catatan,
+            'status'     => 'pending',
             ]);
 
             return response()->json(['message' => 'Pembayaran berhasil dikirim!']);
